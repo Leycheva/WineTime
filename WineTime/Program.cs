@@ -3,13 +3,24 @@ using WineTime.ModelBinders;
 using WineTime.Core.Constants;
 using WineTime.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using WineTime.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplicationDbContexts(builder.Configuration);
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+       {
+           options.SignIn.RequireConfirmedAccount = true;
+           options.Password.RequireDigit = false;
+           options.Password.RequireLowercase = false;
+           options.Password.RequireNonAlphanumeric = false;
+           options.Password.RequireUppercase = false;
+        })
+       .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {

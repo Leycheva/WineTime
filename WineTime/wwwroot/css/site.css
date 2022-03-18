@@ -17,6 +17,13 @@ body {
   margin-bottom: 60px;
 }
 
-#remember {
-    padding: 10 0 0 0;
+.heading-margin {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.header-image {
+    width: 100%;
+    object-fit: cover;
+    height: 300px;
 }

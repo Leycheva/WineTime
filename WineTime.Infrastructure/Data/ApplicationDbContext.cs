@@ -19,5 +19,6 @@
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Region> Regions { get; set; }
+
     }
 }
