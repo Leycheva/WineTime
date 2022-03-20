@@ -35,7 +35,7 @@
 
 
         [Required]
-        public Type Type { get; set; }
+        public Sort Sort { get; set; }
 
 
         [ForeignKey(nameof(RegionId))]

@@ -1,6 +1,6 @@
 ﻿namespace WineTime.Infrastructure.Data
 {
-    public enum Type
+    public enum Sort
     {
         Dry = 1,
         Sweet = 2,

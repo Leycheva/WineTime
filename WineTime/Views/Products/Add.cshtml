@@ -12,26 +12,37 @@
             <div class="form-group">
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control" class="mt-1">
+                <span asp-validation-for="Name" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageUrl"></label>
                 <input asp-for="ImageUrl" class="form-control">
+                 <span asp-validation-for="ImageUrl" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="YearOfManufacture"></label>
                 <input asp-for="YearOfManufacture" class="form-control">
+                 <span asp-validation-for="YearOfManufacture" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price"></label>
                 <input asp-for="Price" class="form-control">
+                 <span asp-validation-for="Price" class="small text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type"></label>
-                <input asp-for="Type" class="form-control">
+                <label asp-for="Sort"></label>
+                <select asp-for="Sort" class="form-control">
+                    <option value="1">Dry</option>
+                    <option value="2">Sweet</option>
+                    <option value="3">Mild</option>
+                    <option value="4">Soft</option>
+            </select>
+                 <span asp-validation-for="Sort" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description"></label>
                 <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId"></label>
@@ -41,6 +52,7 @@
                         <option value="@category.Id">@category.Name</option>
                     }
                 </select>
+                 <span asp-validation-for="CategoryId" class="small text-danger"></span>
             </div>
              <div class="form-group">
                 <label asp-for="ManufactureId"></label>
@@ -50,6 +62,7 @@
                         <option value="@manufacture.Id">@manufacture.ManufactureName, @manufacture.Region</option>
                     }
                 </select>
+                 <span asp-validation-for="ManufactureId" class="small text-danger"></span>
             </div>
        
             <input class="btn btn-danger" type="submit" value="Save" />

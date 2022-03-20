@@ -1,6 +1,7 @@
 ﻿namespace WineTime.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using System.Globalization;
     using WineTime.Infrastructure.Data;
     using WineTime.Models;
     using WineTime.Models.Products;
@@ -20,7 +21,43 @@
         [HttpPost]
         public IActionResult Add(AddProductFormModel product)
         {
-            return View();
+            if (!data.Categories.Any(c => c.Id == product.CategoryId))
+            {
+                ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist.");
+            }
+
+            if (!data.Manufactures.Any(c => c.Id == product.ManufactureId))
+            {
+                ModelState.AddModelError(nameof(product.ManufactureId), "Manufacture does not exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                product.Categories = GetProductCategories();
+                product.Manufactures = GetProductManufactures();
+                return View(product);
+            }
+
+            var convertDecimal = Decimal.Parse(product.Price,
+           NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+
+            var productData = new Product
+            {
+
+                Name = product.Name,
+                Price = convertDecimal,
+                ImageUrl = product.ImageUrl,
+                Description = product.Description,
+                CategoryId = product.CategoryId,
+                YearOfManufacture = product.YearOfManufacture,
+                ManufactureId = product.ManufactureId,
+                Sort = product.Sort
+            };
+
+            data.Products.Add(productData);
+            data.SaveChanges();
+
+            return RedirectToAction("/");
         }
 
 
