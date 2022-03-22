@@ -29,9 +29,26 @@
                 </select>
             </div>
         </div>
-        <input type="submit" class="btn btn-primary mt-2 mb-3 d-none">
+        <input type="submit" class="btn btn-red mt-2 mb-3 d-none">
     </div>
 </form>
+
+
+
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-md-4 mt-3">
+            <div class="card">
+                <img src="@product.ImageUrl" class="card-img-top all-page-product-image" alt="@product.Name @product.YearOfManufacture - @product.Price (@product.Category)">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@product.Name @product.YearOfManufacture (@product.Category)</h5>
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-red">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
 @{
     var previousPage = Model.CurrentPage - 1;
@@ -45,39 +62,23 @@
 }
 
 <div class="row mb-3 mt-3">
-     <div class="col-md-6">
-         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+     <div class="col-md-3">
+         <a class="btn btn-red @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
          asp-controller="Products" 
          asp-action="All" 
-         asp-route-currentPage="@previousPage"
-         asp-route-category="@Model.Categories"
-         asp-route-searchTerm="@Model.SearchTerm"
-         asp-route-sorting="@((int)Model.Sorting)">Previous</a>
+         asp-route-currentPage="@previousPage">Previous</a>
      </div>
-       <div class="col-md-6">
-         <a class="btn btn-primary float-end @(Model.CurrentPage == maxPage ? "disabled" : string.Empty)" 
+    <div class="col-md-6 text-center">
+        <span>
+            @Model.CurrentPage / @maxPage
+        </span>
+    </div>
+       <div class="col-md-3">
+         <a class="btn btn-red float-end @(Model.CurrentPage == maxPage ? "disabled" : string.Empty)" 
          asp-controller="Products" 
          asp-action="All" 
-         asp-route-currentPage="@(Model.CurrentPage + 1)"
-         asp-route-category="@Model.Categories"
-         asp-route-searchTerm="@Model.SearchTerm"
-         asp-route-sorting="@((int)Model.Sorting)">Next</a>
+         asp-route-currentPage="@(Model.CurrentPage + 1)">Next</a>
      </div>
-</div>
-
-<div class="row">
-    @foreach (var product in Model.Products)
-    {
-        <div class="col-md-4">
-            <div class="card">
-                <img src="@product.ImageUrl" class="card-img-top all-page-product-image" alt="@product.Name @product.YearOfManufacture - @product.Price (@product.Category)">
-                <div class="card-body text-center">
-                    <h5 class="card-title">@product.Name @product.YearOfManufacture (@product.Category)</h5>
-                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
-                </div>
-            </div>
-        </div>
-    }
 </div>
 
 

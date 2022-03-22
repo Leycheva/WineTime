@@ -6,14 +6,14 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 ">
-        <h2 class="heading-margin text-center">Add Region</h2>
+        <h2 class="heading-margin text-center text-white">Add Region</h2>
         <form method="post">
-            <div class="form-group">
+            <div class="form-group text-white">
                 <label asp-for="Country"></label>
                 <input asp-for="Country" class="form-control">
                 <span asp-validation-for="Country" class="small text-danger"></span>
             </div>
-            <input class="btn btn-danger mt-2" type="submit" value="Save" />
+            <input class="btn btn-red mt-2" type="submit" value="Save" />
         </form>
     </div>
 </div>

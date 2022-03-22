@@ -5,7 +5,7 @@ namespace WineTime.Models.Products
     public class AllProductQueryModel
     {
 
-        public const int ProductPerPage = 3;
+        public const int ProductPerPage = 6;
 
         public string Category { get; set; }
         
@@ -15,6 +15,8 @@ namespace WineTime.Models.Products
         public string Name { get; set; }
 
         public int CurrentPage { get; set; } = 1;
+
+        public int PageCount { get; set; }
 
         public int TotalProducts { get; set; } = 1;
 

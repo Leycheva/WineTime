@@ -14,7 +14,8 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #2e030f !important;
 }
 
 .heading-margin {
@@ -37,3 +38,11 @@ form label {
     margin-bottom: .5rem !important
 }
 
+.navbar {
+    background-color: #2e030f !important;
+}
+
+.btn-red {
+    background-color: #7e070c;
+    color: white;
+}
