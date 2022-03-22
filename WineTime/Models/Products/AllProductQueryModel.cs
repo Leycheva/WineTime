@@ -8,7 +8,7 @@ namespace WineTime.Models.Products
 
         public IEnumerable<string> Categories { get; set; }
 
-        [Display(Name="Search")]
+        [Display(Name="Search by text")]
         public string SearchTerm { get; set; }
 
         public string Name { get; set; }

@@ -19,7 +19,10 @@
         });
 
 
-        public IActionResult All(string searchTerm, string category)
+        public IActionResult All(
+            string searchTerm, 
+            string category,
+            ProductSorting sorting)
         {
             var productQuery = data.Products.AsQueryable();
 
@@ -33,6 +36,13 @@
                 productQuery = productQuery.Where(p =>
                     p.Name.ToLower().Contains(searchTerm.ToLower()));
             }
+
+            productQuery = sorting switch
+            {
+                ProductSorting.Year => productQuery.OrderByDescending(p => p.YearOfManufacture),
+                ProductSorting.Price => productQuery.OrderByDescending(p => p.Price),
+                ProductSorting.Manufacture => productQuery.OrderBy(p => p.Manufacture.ManufactureName)
+            };
 
             var products = data
                 .Products
@@ -88,11 +98,6 @@
                 product.Categories = GetProductCategories();
                 product.Manufactures = GetProductManufactures();
 
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                foreach (var e in errors)
-                {
-                    Console.WriteLine(e.ErrorMessage);
-                }
                 return View(product);
             }
 
@@ -117,7 +122,6 @@
                 RegionId = region.Id
             };
 
-            Console.WriteLine(productData);
             data.Products.Add(productData);
             data.SaveChanges();
 

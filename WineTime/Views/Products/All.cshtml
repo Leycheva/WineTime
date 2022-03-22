@@ -6,6 +6,7 @@
             <div class="form-group">
                 <label asp-for="Category"></label>
                 <select asp-for="Category" class="form-control">
+                    <option value="">All</option>
                     @foreach (var category in Model.Categories)
                     {
                         <option value="@category">@category</option>
@@ -13,14 +14,24 @@
                 </select>
             </div>
         </div>
-            <div class="form-group col-md-4">
-                <label asp-for="SearchTerm"></label>
-                <input asp-for="SearchTerm" class="form-control" placeholder="Name, Sort, etc...">
+        <div class="form-group col-md-4">
+            <label asp-for="SearchTerm"></label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="Name, Sort, etc...">
+        </div>
+
+        <div class="form-group col-md-4">
+            <div class="form-group">
+                <label asp-for="Sorting"></label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="">All</option>
+                    <option value="0" selected>Year</option>
+                    <option value="1" selected>Price</option>
+                    <option value="2" selected>Manufacture</option>
+                </select>
             </div>
         </div>
-        <div class="form-group col-md-3">
-            <input type="submit" class="btn btn-primary d-none">
-        </div>
+        <input type="submit" class="btn btn-primary d-none">
+    </div>
 </form>
 
 <div class="row">
