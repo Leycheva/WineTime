@@ -39,18 +39,15 @@
 
         [Display(Name = "Category")]
         public int CategoryId { get; init; }
-
-        public IEnumerable<ProductCategoryViewModel> Categories { get; set; }
+        
+        public IEnumerable<ProductCategoryViewModel>? Categories { get; set; }
 
         [Display(Name = "Manufacture")]
         public int ManufactureId { get; init; }
 
-        public IEnumerable<ProductManufactureViewModel> Manufactures { get; set; }
+        public IEnumerable<ProductManufactureViewModel>? Manufactures { get; set; }
 
         
-        [Display(Name = "Region")]
-        public int RegionId { get; init; }
-
-        public IEnumerable<ProductRegionViewModel> Regions { get; set; }
+        
     }
 }

@@ -1,21 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WineTime.Models;
-
-namespace WineTime.Controllers
+﻿namespace WineTime.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using System.Diagnostics;
+    using WineTime.Infrastructure.Data;
+    using WineTime.Models;
+    using WineTime.Models.Products;
+
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext data;
+
+        private readonly ILogger<HomeController> logger;
+
+        public HomeController(ILogger<HomeController> _logger, ApplicationDbContext _data)
         {
-            _logger = logger;
+            logger = _logger;
+            data = _data;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var products = data
+                .Products
+                .OrderByDescending(p => p.Id)
+                .Select(p => new ProductListingViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    ImageUrl = p.ImageUrl,
+                    Category = p.Category.Name,
+                    Price = p.Price,
+                    YearOfManufacture = p.YearOfManufacture
+
+                })
+                .Take(3)
+                .ToList();
+
+            return View(products);
         }
 
         public IActionResult Privacy()
