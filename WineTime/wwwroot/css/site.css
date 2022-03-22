@@ -27,3 +27,13 @@ body {
     object-fit: cover;
     height: 300px;
 }
+.all-page-product-image {
+    width: 100%;
+    object-fit: contain;
+    height: 300px;
+}
+
+form label {
+    margin-bottom: .5rem !important
+}
+

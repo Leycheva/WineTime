@@ -19,33 +19,33 @@
         });
 
 
-        public IActionResult All(
-            string searchTerm, 
-            string category,
-            ProductSorting sorting)
+        public IActionResult All([FromQuery]AllProductQueryModel query)
         {
             var productQuery = data.Products.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(category))
+            if (!string.IsNullOrWhiteSpace(query.Category))
             {
-                productQuery = productQuery.Where(x => x.Category.Name == category);
+                productQuery = productQuery.Where(x => x.Category.Name == query.Category);
             }
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
             {
                 productQuery = productQuery.Where(p =>
-                    p.Name.ToLower().Contains(searchTerm.ToLower()));
+                    p.Name.ToLower().Contains(query.SearchTerm.ToLower()));
             }
 
-            productQuery = sorting switch
+            productQuery = query.Sorting switch
             {
+                ProductSorting.Manufacture => productQuery.OrderBy(p => p.Manufacture.ManufactureName),
                 ProductSorting.Year => productQuery.OrderByDescending(p => p.YearOfManufacture),
-                ProductSorting.Price => productQuery.OrderByDescending(p => p.Price),
-                ProductSorting.Manufacture => productQuery.OrderBy(p => p.Manufacture.ManufactureName)
+                ProductSorting.Price or _ => productQuery.OrderByDescending(p => p.Price)
             };
 
-            var products = data
-                .Products
+            var totalProducts = productQuery.Count();  
+
+            var products = productQuery
+                .Skip((query.CurrentPage - 1) * AllProductQueryModel.ProductPerPage)
+                .Take(AllProductQueryModel.ProductPerPage)
                 .OrderByDescending(p => p.Id)
                 .Select(p => new ProductListingViewModel
                 {
@@ -71,13 +71,11 @@
                 .Distinct()
                 .ToList();
 
-            return View(new AllProductQueryModel
-            {
-                Names = productNames,
-                Categories = productCategories,
-                Products = products,
-                SearchTerm = searchTerm
-            });
+            query.Products = products;
+            query.TotalProducts = totalProducts;
+            query.Categories = productCategories;
+
+            return View(query);
         }
 
         [HttpPost]

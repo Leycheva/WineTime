@@ -9,14 +9,14 @@
     <div class="col-sm-10 offset-lg-2 col-lg-6 offset-xl-3 col-xl-4 ">
         <section>
             <form id="account" method="post">
-                <h2 class="login-box-msg text-center">Sign in here!</h2>
+                <h2 class="login-box-msg text-center mt-3 mb-3">Sign in here!</h2>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-floating">
+                <div class="form-floating mt-3 mb-3">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                     <label asp-for="Input.Email" class="form-label"></label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
                     <label asp-for="Input.Password" class="form-label"></label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -30,13 +30,12 @@
                     </div>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-danger">Log in</button>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-danger mt-2 mb-2">Log in</button>
                 </div>
                 <div>
                     <p>
                         <a id="forgot-password" class="text-danger" asp-page="./ForgotPassword">Forgot your password?</a>
                     </p>
-
                     <p>
                         <a asp-page="./Register" class="text-danger" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                     </p>

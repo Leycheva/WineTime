@@ -2,8 +2,8 @@
 {
     public enum ProductSorting
     {
-        Year = 0,  
+        Manufacture = 0,  
         Price = 1,
-        Manufacture = 2
+        Year = 2
     }
 }
