@@ -1,15 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WineTime.Extensions;
-using WineTime.Infrastructure.Data;
-using WineTime.Infrastructure.Data.Repositories;
-
-namespace Microsoft.Extensions.DependencyInjection
+﻿namespace Microsoft.Extensions.DependencyInjection
 {
+    using Microsoft.EntityFrameworkCore;
+    using WineTime.Core.Contracts;
+    using WineTime.Core.Services;
+    using WineTime.Extensions;
+    using WineTime.Infrastructure.Data;
+    using WineTime.Infrastructure.Data.Repositories;
+
     public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             var provider = services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>().BuildServiceProvider();
+            services.AddScoped<IProductService, ProductService >().BuildServiceProvider();
 
             var scope = provider.CreateScope();
 

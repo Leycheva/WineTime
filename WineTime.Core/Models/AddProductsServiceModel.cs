@@ -1,15 +1,13 @@
-﻿namespace WineTime.Models
+﻿using System.ComponentModel.DataAnnotations;
+using WineTime.Infrastructure.Data;
+
+namespace WineTime.Core.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using WineTime.Infrastructure.Data;
-    using WineTime.Models.Products;
-
-    public class AddProductFormModel
+    public class AddProductsServiceModel
     {
-
         [Required]
-        [StringLength(50,MinimumLength = 2,
-            ErrorMessage = "The Name field must be a text with minimun lenght 2 and maximum length 50!")]
+        [StringLength(50, MinimumLength = 2,
+             ErrorMessage = "The Name field must be a text with minimun lenght 2 and maximum length 50!")]
         public string Name { get; init; }
 
 
@@ -39,15 +37,11 @@
 
         [Display(Name = "Category")]
         public int CategoryId { get; init; }
-        
-        public IEnumerable<ProductCategoryViewModel>? Categories { get; set; }
+        public IEnumerable<ProductCategoryServiceModel>? Categories { get; set; }
 
         [Display(Name = "Manufacture")]
         public int ManufactureId { get; init; }
+        public IEnumerable<ProductManufactureServiceModel>? Manufactures { get; set; }
 
-        public IEnumerable<ProductManufactureViewModel>? Manufactures { get; set; }
-
-        
-        
     }
 }

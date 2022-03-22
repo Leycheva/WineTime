@@ -7,18 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Contracts\**" />
-    <Compile Remove="Models\**" />
-    <Compile Remove="Services\**" />
-    <EmbeddedResource Remove="Contracts\**" />
-    <EmbeddedResource Remove="Models\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Contracts\**" />
-    <None Remove="Models\**" />
-    <None Remove="Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\WineTime.Infrastructure\WineTime.Infrastructure.csproj" />
   </ItemGroup>
 

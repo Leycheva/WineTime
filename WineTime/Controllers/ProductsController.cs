@@ -1,23 +1,24 @@
 ﻿namespace WineTime.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using System.Globalization;
+    using WineTime.Core.Contracts;
+    using WineTime.Core.Models;
     using WineTime.Infrastructure.Data;
-    using WineTime.Models;
     using WineTime.Models.Products;
 
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext data;
 
-        public ProductsController(ApplicationDbContext _data) => data = _data;
+        private readonly IProductService productService;
 
-        public IActionResult Add() => View(new AddProductFormModel
+        public ProductsController(
+            ApplicationDbContext _data, 
+            IProductService _productService)
         {
-            Categories = GetProductCategories(),
-            Manufactures = GetProductManufactures()
-        });
-
+            data = _data;
+            productService = _productService;
+        }
 
         public IActionResult All([FromQuery]AllProductQueryModel query)
         {
@@ -78,9 +79,17 @@
             return View(query);
         }
 
-        [HttpPost]
-        public IActionResult Add(AddProductFormModel product)
+        public IActionResult Add() => View(new AddProductsServiceModel
         {
+            Categories = productService.GetProductCategories(),
+            Manufactures = productService.GetProductManufactures()
+        });
+
+
+        [HttpPost]
+        public IActionResult Add(AddProductsServiceModel product)
+        {
+
             if (!data.Categories.Any(p => p.Id == product.CategoryId))
             {
                 ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist.");
@@ -93,59 +102,16 @@
 
             if (!ModelState.IsValid)
             {
-                product.Categories = GetProductCategories();
-                product.Manufactures = GetProductManufactures();
+                product.Categories = productService.GetProductCategories();
+                product.Manufactures = productService.GetProductManufactures();
 
                 return View(product);
             }
 
-
-            var convertDecimal = Decimal.Parse(product.Price,
-            NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-
-            var manufacture = GetProductManufactures().FirstOrDefault(m => m.Id == product.ManufactureId);
-            var region = data.Regions.FirstOrDefault(r => r.Country == manufacture.Region);
-
-            var productData = new Product
-            {
-
-                Name = product.Name,
-                Price = convertDecimal,
-                ImageUrl = product.ImageUrl,
-                Description = product.Description,
-                CategoryId = product.CategoryId,
-                YearOfManufacture = product.YearOfManufacture,
-                ManufactureId = product.ManufactureId,
-                Sort = product.Sort,
-                RegionId = region.Id
-            };
-
-            data.Products.Add(productData);
-            data.SaveChanges();
+            productService.Add(product);
 
             return RedirectToAction(nameof(All));
         }
 
-
-        private IEnumerable<ProductCategoryViewModel> GetProductCategories()
-           => this.data
-            .Categories
-            .Select(c => new ProductCategoryViewModel
-            {
-                Id = c.Id,
-                Name = c.Name,
-            })
-            .ToList();
-
-        private IEnumerable<ProductManufactureViewModel> GetProductManufactures()
-           => this.data
-            .Manufactures
-            .Select(c => new ProductManufactureViewModel
-            {
-                Id = c.Id,
-                ManufactureName = c.ManufactureName,
-                Region = c.Region.Country
-            })
-            .ToList();
     }
 }
