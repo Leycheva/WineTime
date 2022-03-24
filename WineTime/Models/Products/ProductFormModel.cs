@@ -1,10 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WineTime.Core.Models;
 using WineTime.Infrastructure.Data;
 
-namespace WineTime.Core.Models
+namespace WineTime.Models.Products
 {
-    public class AddProductsServiceModel
+    public class ProductFormModel
     {
+
+        public int? Id { get; set; }
+
         [Required]
         [StringLength(50, MinimumLength = 2,
              ErrorMessage = "The Name field must be a text with minimun lenght 2 and maximum length 50!")]

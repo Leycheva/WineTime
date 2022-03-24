@@ -1,6 +1,7 @@
 ﻿namespace WineTime.Core.Services
 {
     using System.Globalization;
+    using WineTime.Core.Constants;
     using WineTime.Core.Contracts;
     using WineTime.Core.Models;
     using WineTime.Infrastructure.Data;
@@ -11,32 +12,38 @@
 
         public ProductService(ApplicationDbContext _data) => data = _data;
 
-        public void Add(AddProductsServiceModel product)
-        {
-            var convertDecimal = Decimal.Parse(product.Price,
-            NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+        //public void Add(ProductsServiceModel product)
+        //{
+        //    var convertDecimal = Decimal.Parse(product.Price,
+        //    NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
 
-            var manufacture = GetProductManufactures().FirstOrDefault(m => m.Id == product.ManufactureId);
-            var region = data.Regions.FirstOrDefault(r => r.Country == manufacture.Region);
+        //    var manufacture = GetProductManufactures().FirstOrDefault(m => m.Id == product.ManufactureId);
+        //    var region = data.Regions.FirstOrDefault(r => r.Country == manufacture.Region);
 
-            var productData = new Product
-            {
-                Name = product.Name,
-                Price = convertDecimal,
-                ImageUrl = product.ImageUrl,
-                Description = product.Description,
-                CategoryId = product.CategoryId,
-                YearOfManufacture = product.YearOfManufacture,
-                ManufactureId = product.ManufactureId,
-                Sort = product.Sort,
-                RegionId = region.Id
-            };
+        //    var productData = new Product
+        //    {
+        //        Name = product.Name,
+        //        Price = convertDecimal,
+        //        ImageUrl = product.ImageUrl,
+        //        Description = product.Description,
+        //        CategoryId = product.CategoryId,
+        //        YearOfManufacture = product.YearOfManufacture,
+        //        ManufactureId = product.ManufactureId,
+        //        Sort = product.Sort,
+        //        RegionId = region.Id
+        //    };
 
-            data.Products.Add(productData);
-            data.SaveChanges();
+        //    data.Products.Add(productData);
+        //    data.SaveChanges();
 
-        }
+        //}
 
+        public bool CategoryExists(int categoryId)
+           => data
+            .Categories
+            .Any(p => p.Id == categoryId);
+
+        
         public IEnumerable<ProductCategoryServiceModel> GetProductCategories()
          => this.data
           .Categories
@@ -57,6 +64,72 @@
                 Region = c.Region.Country
             })
             .ToList();
+
+        public bool ManufactureExists(int manufactureId)
+             => data
+            .Manufactures
+            .Any(p => p.Id == manufactureId);
+
+        public int Create(string name, string price, string imageUrl, string description, 
+            int categoryId, string yearOfManufacture, int manufactureId, Sort sort)
+        {
+            var convertPrice = Decimal.Parse(price,
+            NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+
+            var productData = new Product
+            {
+                Name = name,
+                Price = convertPrice,
+                ImageUrl = imageUrl,
+                Description = description,
+                CategoryId = categoryId,
+                YearOfManufacture = yearOfManufacture,
+                ManufactureId = manufactureId,
+                Sort = sort
+            };
+
+            data.Products.Add(productData);
+            data.SaveChanges();
+
+            return productData.Id;
+        }
+
+        public void Update(int id, string name, string price, string imageUrl, string description,
+            int categoryId, string yearOfManufacture, int manufactureId, Sort sort)
+        {
+            var convertPrice = Decimal.Parse(price,
+            NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+
+            var product = data.Products.FirstOrDefault(p => p.Id == id);
+            product.Name = name;
+            product.Price = convertPrice;
+            product.ImageUrl = imageUrl;
+            product.Description = description;
+            product.CategoryId = categoryId;
+            product.YearOfManufacture = yearOfManufacture;
+            product.ManufactureId = manufactureId;
+            product.Sort = sort;
+
+            data.SaveChanges();
+
+        }
+
+        public ProductsServiceModel? Details(int id)
+            => this.data
+            .Products
+            .Where(p => p.Id == id)
+            .Select(p => new ProductsServiceModel
+            {
+                Name = p.Name,
+                Price = p.Price,
+                ImageUrl = p.ImageUrl,
+                Description = p.Description,
+                CategoryId = p.CategoryId,
+                YearOfManufacture = p.YearOfManufacture,
+                Sort = p.Sort,
+                ManufactureId = p.ManufactureId
+            })
+            .FirstOrDefault();
     }
 
 }

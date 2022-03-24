@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.Extensions.DependencyInjection
 {
     using Microsoft.EntityFrameworkCore;
-    using WineTime.Core.Contracts;
+    using WineTime.Core.Constants;
     using WineTime.Core.Services;
     using WineTime.Extensions;
     using WineTime.Infrastructure.Data;

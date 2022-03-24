@@ -1,14 +1,42 @@
-﻿using WineTime.Core.Models;
+﻿namespace WineTime.Core.Constants
+{ 
+    using WineTime.Core.Models;
+    using WineTime.Infrastructure.Data;
 
-namespace WineTime.Core.Contracts
-{
     public interface IProductService
     {
-        void Add(AddProductsServiceModel product);
+        //void Add(ProductsServiceModel product);
 
-       IEnumerable<ProductCategoryServiceModel> GetProductCategories();
+        int Create(string name,
+                   string price,
+                   string imageUrl,
+                   string description,
+                   int categoryId,
+                   string yearOfManufacture,
+                   int manufactureId,
+                   Sort Sort);
 
-      IEnumerable<ProductManufactureServiceModel> GetProductManufactures();
+        void Update(int id,
+                       string name,
+                       string price,
+                       string imageUrl,
+                       string description,
+                       int categoryId,
+                       string yearOfManufacture,
+                       int manufactureId,
+                       Sort Sort);
+
+        bool CategoryExists(int categoryId);
+
+        bool ManufactureExists(int manufactureId);
+
+        public ProductsServiceModel Details(int id);
+
+        IEnumerable<ProductCategoryServiceModel> GetProductCategories();
+
+        IEnumerable<ProductManufactureServiceModel> GetProductManufactures();
+
+
 
     }
 }
