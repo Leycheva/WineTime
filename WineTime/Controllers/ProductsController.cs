@@ -80,6 +80,26 @@
             return View(query);
         }
 
+        public IActionResult Details(int id) 
+        {
+            var product = productService.Details(id);
+
+            return View(new ProductFormModel
+            {
+                Id = id,
+                Name = product.Name,
+                ImageUrl = product.ImageUrl,
+                Price = product.Price.ToString("0.00"),
+                Description = product.Description,
+                CategoryId = product.CategoryId,
+                ManufactureId = product.ManufactureId,
+                YearOfManufacture = product.YearOfManufacture,
+                Sort = product.Sort,
+                Manufactures = productService.GetProductManufactures(),
+                Categories = productService.GetProductCategories()
+            });
+        }
+
         public IActionResult Add() => View(new ProductFormModel
         {
             Categories = productService.GetProductCategories(),

@@ -46,3 +46,9 @@ form label {
     background-color: #7e070c;
     color: white;
 }
+
+.product-details-image-holder { 
+    text-align: center;
+    height: 600px;
+    background-color: white;
+}

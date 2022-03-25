@@ -1,0 +1,45 @@
+﻿@model ProductFormModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<form method="get">
+    <div class="container bootdey">
+        <div class="col-md-10">
+            <section class="panel">
+                <div class="panel-body row mt-4">
+                    <div class="col-md-6">
+                        <div class="product-details-image-holder rounded">
+                            <img src="@Model.ImageUrl" alt="@Model.Name @Model.Sort" class="h-100" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-white">
+                        <h3 class="pro-d-title text-white">
+                            @Model.Name
+                        </h3>
+                        <h3 class="pro-d-title text-white mb-4">
+                            @Model.Manufacture (@Model.YearOfManufacture)
+                        </h3>
+                        <div class="mt-2">
+                            <strong>Category :</strong> <span>@Model.Category wine</span>
+                        </div>
+                        <div class="mt-2">
+                            <strong>Type :</strong> <span>@Model.Sort</span>
+                        </div>
+                        <div class="mt-2">
+                            <strong>Price : </strong> <span>@Model.Price BGN</span>
+                        </div>
+                        <div class="mt-2">
+                            <strong>Description: </strong> <span>@Model.Description</span>
+                        </div>
+                         <p>
+                            <button class="btn btn-round btn-red mt-4" type="button"><i class=""></i> Add to Wishlist</button>
+                            </p>
+                    </div>
+                </div>
+        </div>
+        </section>
+    </div>
+    </div>
+</form>

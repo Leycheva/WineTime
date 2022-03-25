@@ -2,7 +2,6 @@
 {
     using System.Globalization;
     using WineTime.Core.Constants;
-    using WineTime.Core.Contracts;
     using WineTime.Core.Models;
     using WineTime.Infrastructure.Data;
 
@@ -130,6 +129,16 @@
                 ManufactureId = p.ManufactureId
             })
             .FirstOrDefault();
+
+        public IEnumerable<ProductRegionServiceModel> GetProductRegion()
+         => this.data
+            .Regions
+            .Select(c => new ProductRegionServiceModel
+            {
+                Id = c.Id,
+                Country = c.Country
+            })
+            .ToList();
     }
 
 }

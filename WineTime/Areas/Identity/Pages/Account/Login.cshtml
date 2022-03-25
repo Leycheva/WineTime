@@ -22,7 +22,7 @@
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div>
-                    <div class="checkbox">
+                    <div class="checkbox text-white">
                         <label asp-for="Input.RememberMe" class="form-label">
                             <input class="form-check-input" asp-for="Input.RememberMe" />
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
@@ -34,10 +34,10 @@
                 </div>
                 <div>
                     <p>
-                        <a id="forgot-password" class="text-danger" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" class="text-white" asp-page="./ForgotPassword">Forgot your password?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" class="text-danger" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" class="text-white" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                     </p>
                     
                 </div>

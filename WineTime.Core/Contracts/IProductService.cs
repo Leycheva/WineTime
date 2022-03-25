@@ -36,7 +36,7 @@
 
         IEnumerable<ProductManufactureServiceModel> GetProductManufactures();
 
-
+        IEnumerable<ProductRegionServiceModel> GetProductRegion();
 
     }
 }
