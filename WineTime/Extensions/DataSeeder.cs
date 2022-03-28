@@ -1,4 +1,5 @@
-﻿using WineTime.Infrastructure.Data;
+﻿using Microsoft.AspNetCore.Identity;
+using WineTime.Infrastructure.Data;
 
 namespace WineTime.Extensions
 {
@@ -61,6 +62,41 @@ namespace WineTime.Extensions
                 applicationDbContext.Manufactures.AddRange(manufactures);
                 applicationDbContext.SaveChanges();
             }
+        }
+
+        public void SeedAdmin(IServiceProvider service)
+        {
+            const string AdminName = "Administrator";
+
+            var userManager = service.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleManager = service.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task
+                .Run( async () =>
+                {
+                    if (await roleManager.RoleExistsAsync(AdminName))
+                    {
+                        return;
+                    }
+
+                    await roleManager.CreateAsync(new IdentityRole
+                    {
+                        Name = AdminName
+                    });
+
+                    var user = new ApplicationUser
+                    {
+                        UserName = "admin@wt.com",
+                        Email = "admin@wt.com",
+                        FullName = "Owner",
+                        EmailConfirmed = true,
+                    };
+
+                    await userManager.CreateAsync(user, "pass123");    
+                    await userManager.AddToRoleAsync(user, AdminName);
+                })
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }

@@ -20,6 +20,8 @@
             var seeder = new DataSeeder(data);
             seeder.Seed();
 
+            seeder.SeedAdmin(scope.ServiceProvider);
+
             return services;
         }
 

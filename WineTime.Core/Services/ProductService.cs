@@ -11,32 +11,6 @@
 
         public ProductService(ApplicationDbContext _data) => data = _data;
 
-        //public void Add(ProductsServiceModel product)
-        //{
-        //    var convertDecimal = Decimal.Parse(product.Price,
-        //    NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-
-        //    var manufacture = GetProductManufactures().FirstOrDefault(m => m.Id == product.ManufactureId);
-        //    var region = data.Regions.FirstOrDefault(r => r.Country == manufacture.Region);
-
-        //    var productData = new Product
-        //    {
-        //        Name = product.Name,
-        //        Price = convertDecimal,
-        //        ImageUrl = product.ImageUrl,
-        //        Description = product.Description,
-        //        CategoryId = product.CategoryId,
-        //        YearOfManufacture = product.YearOfManufacture,
-        //        ManufactureId = product.ManufactureId,
-        //        Sort = product.Sort,
-        //        RegionId = region.Id
-        //    };
-
-        //    data.Products.Add(productData);
-        //    data.SaveChanges();
-
-        //}
-
         public bool CategoryExists(int categoryId)
            => data
             .Categories

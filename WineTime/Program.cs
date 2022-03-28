@@ -7,16 +7,21 @@ using WineTime.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");
+
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+
 builder.Services.AddApplicationDbContexts(builder.Configuration);
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
        {
-           options.SignIn.RequireConfirmedAccount = true;
+           options.SignIn.RequireConfirmedAccount = false;
            options.Password.RequireDigit = false;
            options.Password.RequireLowercase = false;
            options.Password.RequireNonAlphanumeric = false;
            options.Password.RequireUppercase = false;
         })
+       .AddRoles<IdentityRole>()
        .AddEntityFrameworkStores<ApplicationDbContext>();
 
 

@@ -5,8 +5,6 @@
 
     public interface IProductService
     {
-        //void Add(ProductsServiceModel product);
-
         int Create(string name,
                    string price,
                    string imageUrl,
