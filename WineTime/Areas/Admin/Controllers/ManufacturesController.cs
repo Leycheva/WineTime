@@ -1,10 +1,11 @@
 ﻿namespace WineTime.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using WineTime.Areas.Admin.Controllers;
+    using WineTime.Areas.Admin.Models;
     using WineTime.Infrastructure.Data;
-    using WineTime.Models.Manufactures;
 
-    public class ManufacturesController : Controller
+    public class ManufacturesController : AdminController
     {
 
         private readonly ApplicationDbContext data;

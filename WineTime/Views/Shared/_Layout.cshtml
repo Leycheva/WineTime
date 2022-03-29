@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using WineTime.Infrastructure.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,27 +22,45 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Products" asp-action="All">All Product</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Regions" asp-action="Add">Add Region</a>
-                        </li>
-                            <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Manufactures" asp-action="Add">Add Manufacture</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Products" asp-action="All">All Product</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Products" asp-action="Add">Add Product</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Regions" asp-action="Add">Add Region</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Manufactures" asp-action="Add">Add Manufacture</a>
+                                </li>
+                            </ul>
+                            <partial name="_LoginPartial" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Products" asp-action="All">All Product</a>
+                                </li>
+                            </ul>
+                            <partial name="_LoginPartial" />
+                        </div>
+                    }
+                }
             </div>
         </nav>
-        <img src="~/Images/Header14.jpg" class="header-image"/>
+        <img src="~/Images/Header14.jpg" class="header-image" />
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -46,7 +69,7 @@
 
     <footer class="footer text-center text-muted navbar">
         <div class="container text-white">
-            &copy; @DateTime.UtcNow.Year - WineTime 
+            &copy; @DateTime.UtcNow.Year - WineTime
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

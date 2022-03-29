@@ -28,18 +28,17 @@
                             <strong>Type :</strong> <span>@Model.Sort</span>
                         </div>
                         <div class="mt-2">
-                            <strong>Price : </strong> <span>@Model.Price BGN</span>
+                            <strong>Price : </strong> <span>@Model.Price.ToString("0.00") BGN</span>
                         </div>
                         <div class="mt-2">
                             <strong>Description: </strong> <span>@Model.Description</span>
                         </div>
-                         <p>
+                        <p>
                             <button class="btn btn-round btn-red mt-4" type="button"><i class=""></i> Add to Wishlist</button>
-                            </p>
+                        </p>
                     </div>
                 </div>
+            </section>
         </div>
-        </section>
-    </div>
     </div>
 </form>

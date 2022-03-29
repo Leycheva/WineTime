@@ -42,8 +42,15 @@
                 <img src="@product.ImageUrl" class="card-img-top all-page-product-image" alt="@product.Name @product.YearOfManufacture - @product.Price (@product.Category)">
                 <div class="card-body text-center">
                     <h5 class="card-title">@product.Name @product.YearOfManufacture (@product.Category)</h5>
-                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-red">Details</a>
-                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-red">Edit</a>
+                    @if(User.IsInRole("Administrator"))
+                    {
+                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-red">Edit</a>
+                        <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-red">Delete</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-red">Details</a>
+                    }
                 </div>
             </div>
         </div>

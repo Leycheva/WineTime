@@ -1,4 +1,4 @@
-﻿namespace WineTime.Models.Regions
+﻿namespace WineTime.Areas.Admin.Models
 {
     using System.ComponentModel.DataAnnotations;
 

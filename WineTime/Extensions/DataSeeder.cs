@@ -67,6 +67,9 @@ namespace WineTime.Extensions
         public void SeedAdmin(IServiceProvider service)
         {
             const string AdminName = "Administrator";
+            const string email = "admin @wt.com";
+            const string userName = "admin@wt.com";
+            const string password = "pass123";
 
             var userManager = service.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = service.GetRequiredService<RoleManager<IdentityRole>>();
@@ -86,13 +89,13 @@ namespace WineTime.Extensions
 
                     var user = new ApplicationUser
                     {
-                        UserName = "admin@wt.com",
-                        Email = "admin@wt.com",
+                        UserName = userName,
+                        Email = email,
                         FullName = "Owner",
                         EmailConfirmed = true,
                     };
 
-                    await userManager.CreateAsync(user, "pass123");    
+                    await userManager.CreateAsync(user, password);    
                     await userManager.AddToRoleAsync(user, AdminName);
                 })
                 .GetAwaiter()

@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WineTime.Models.Products
+﻿namespace WineTime.Areas.Admin.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class AllProductQueryModel
     {
 

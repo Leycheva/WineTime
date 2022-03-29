@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using WineTime.Core.Models;
-using WineTime.Infrastructure.Data;
-
-namespace WineTime.Models.Products
+﻿namespace WineTime.Areas.Admin.Models
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using WineTime.Core.Models;
+    using WineTime.Infrastructure.Data;
+
     public class ProductFormModel
     {
 
@@ -26,10 +27,10 @@ namespace WineTime.Models.Products
         [Display(Name = "Year")]
         public string YearOfManufacture { get; init; }
 
-        [Required]
-        [StringLength(50, MinimumLength = 2,
-             ErrorMessage = "The Price field must be a text with minimun lenght 2 and maximum length 50!")]
-        public string Price { get; init; }
+        [Range(1, 1000)]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Price { get; init; }
 
         [Required]
         public Sort Sort { get; init; }

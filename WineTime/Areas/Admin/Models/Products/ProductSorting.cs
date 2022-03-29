@@ -1,4 +1,4 @@
-﻿namespace WineTime.Models.Products
+﻿namespace WineTime.Areas.Admin.Models
 {
     public enum ProductSorting
     {

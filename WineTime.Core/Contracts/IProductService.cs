@@ -24,6 +24,8 @@
                        int manufactureId,
                        Sort Sort);
 
+        void Delete(int id);
+
         bool CategoryExists(int categoryId);
 
         bool ManufactureExists(int manufactureId);

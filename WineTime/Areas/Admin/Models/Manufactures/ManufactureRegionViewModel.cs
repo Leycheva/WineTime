@@ -1,4 +1,4 @@
-﻿namespace WineTime.Models.Manufactures
+﻿namespace WineTime.Areas.Admin.Models
 {
     public class ManufactureRegionViewModel
     {

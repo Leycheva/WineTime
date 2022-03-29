@@ -52,3 +52,12 @@ form label {
     height: 600px;
     background-color: white;
 }
+
+.nav-pills .nav-link.active {
+    color: white;
+    background-color: #7e070c;
+}
+
+.nav-pills .nav-link {
+    color: white;
+}

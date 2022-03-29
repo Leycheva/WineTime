@@ -1,5 +1,7 @@
 ﻿namespace WineTime.Core.Services
 {
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using System.Globalization;
     using WineTime.Core.Constants;
     using WineTime.Core.Models;
@@ -8,8 +10,15 @@
     public class ProductService : IProductService
     {
         private readonly ApplicationDbContext data;
+        private readonly IMapper mapper;
 
-        public ProductService(ApplicationDbContext _data) => data = _data;
+        public ProductService(
+            ApplicationDbContext _data,
+             IMapper _mapper)
+        {
+            data = _data;
+            mapper = _mapper;
+        }
 
         public bool CategoryExists(int categoryId)
            => data
@@ -20,22 +29,13 @@
         public IEnumerable<ProductCategoryServiceModel> GetProductCategories()
          => this.data
           .Categories
-          .Select(c => new ProductCategoryServiceModel
-          {
-              Id = c.Id,
-              Name = c.Name,
-          })
+          .ProjectTo<ProductCategoryServiceModel>(mapper.ConfigurationProvider)
           .ToList();
 
         public IEnumerable<ProductManufactureServiceModel> GetProductManufactures()
            => this.data
             .Manufactures
-            .Select(c => new ProductManufactureServiceModel
-            {
-                Id = c.Id,
-                ManufactureName = c.ManufactureName,
-                Region = c.Region.Country
-            })
+            .ProjectTo<ProductManufactureServiceModel>(mapper.ConfigurationProvider)
             .ToList();
 
         public bool ManufactureExists(int manufactureId)
@@ -58,7 +58,9 @@
                 CategoryId = categoryId,
                 YearOfManufacture = yearOfManufacture,
                 ManufactureId = manufactureId,
-                Sort = sort
+                Sort = sort,
+                RegionId = 1,
+                Region = null
             };
 
             data.Products.Add(productData);
@@ -91,28 +93,27 @@
             => this.data
             .Products
             .Where(p => p.Id == id)
-            .Select(p => new ProductsServiceModel
-            {
-                Name = p.Name,
-                Price = p.Price,
-                ImageUrl = p.ImageUrl,
-                Description = p.Description,
-                CategoryId = p.CategoryId,
-                YearOfManufacture = p.YearOfManufacture,
-                Sort = p.Sort,
-                ManufactureId = p.ManufactureId
-            })
+            .ProjectTo<ProductsServiceModel>(mapper.ConfigurationProvider)
             .FirstOrDefault();
 
         public IEnumerable<ProductRegionServiceModel> GetProductRegion()
          => this.data
             .Regions
-            .Select(c => new ProductRegionServiceModel
-            {
-                Id = c.Id,
-                Country = c.Country
-            })
+            .ProjectTo<ProductRegionServiceModel>(mapper.ConfigurationProvider)
             .ToList();
+
+        public void Delete(int id)
+        {
+            var product = data.Products.FirstOrDefault(p => p.Id == id);
+
+            if (product == null)
+            {
+                return;
+            }
+
+            data.Products.Remove(product);
+            data.SaveChanges();
+        }
     }
 
 }

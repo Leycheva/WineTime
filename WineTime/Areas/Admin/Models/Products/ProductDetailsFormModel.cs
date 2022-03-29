@@ -1,8 +1,5 @@
-﻿namespace WineTime.Models.Products
+﻿namespace WineTime.Areas.Admin.Models
 {
-
-    using WineTime.Core.Models;
-
     public class ProductDetailsFormModel : ProductFormModel
     {
         public string Category
@@ -13,6 +10,5 @@
         {
             get => Manufactures?.FirstOrDefault(x => x.Id == ManufactureId)?.ManufactureName ?? "";
         }
-
     }
 }

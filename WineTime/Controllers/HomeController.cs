@@ -2,11 +2,11 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
+    using WineTime.Areas.Admin.Models;
     using WineTime.Infrastructure.Data;
     using WineTime.Models;
-    using WineTime.Models.Products;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
         private readonly ApplicationDbContext data;

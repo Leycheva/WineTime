@@ -1,10 +1,10 @@
-﻿namespace WineTime.Controllers
+﻿namespace WineTime.Areas.Admin.Models
 {
     using Microsoft.AspNetCore.Mvc;
+    using WineTime.Areas.Admin.Controllers;
     using WineTime.Infrastructure.Data;
-    using WineTime.Models.Regions;
 
-    public class RegionsController : Controller
+    public class RegionsController : AdminController
     {
 
         private readonly ApplicationDbContext data;

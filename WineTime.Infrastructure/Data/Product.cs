@@ -24,7 +24,8 @@
         [StringLength(4)]
         public string YearOfManufacture { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
+
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
 

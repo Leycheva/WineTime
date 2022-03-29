@@ -7,12 +7,8 @@ using WineTime.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");
-
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(connectionString));
-
 builder.Services.AddApplicationDbContexts(builder.Configuration);
+
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
        {
            options.SignIn.RequireConfirmedAccount = false;
@@ -24,7 +20,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
        .AddRoles<IdentityRole>()
        .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
@@ -38,7 +34,6 @@ builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -59,8 +54,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "Areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.Run();
