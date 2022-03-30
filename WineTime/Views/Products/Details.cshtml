@@ -34,7 +34,8 @@
                             <strong>Description: </strong> <span>@Model.Description</span>
                         </div>
                         <p>
-                            <button class="btn btn-round btn-red mt-4" type="button"><i class=""></i> Add to Wishlist</button>
+                            @*<button asp-controller="Products" asp-action="AddToFavorites" asp-route-id="@Model.Id" class="btn btn-round btn-red mt-4" type="button"><i class=""></i> Add to Wishlist</button>*@
+                            <a asp-controller="Favorites" asp-action="AddToFavorites" asp-route-id="@Model.Id" class="btn btn-red mt-2">Add To Wish List</a>
                         </p>
                     </div>
                 </div>

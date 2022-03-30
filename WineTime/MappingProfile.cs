@@ -9,8 +9,9 @@
     {
         public MappingProfile()
         {
-            CreateMap<ProductsServiceModel, ProductFormModel>();
-            CreateMap<Product, ProductListingViewModel>();
+            CreateMap<ProductsServiceModel, ProductFormModel>().ReverseMap();
+            CreateMap<Product, ProductListingViewModel>()
+                .ForMember(x => x.Category, cfg => cfg.MapFrom(c => c.Category.Name));
             CreateMap<Product, ProductsServiceModel>();
             CreateMap<Region, ProductRegionServiceModel>();
             CreateMap<Category, ProductCategoryServiceModel>();

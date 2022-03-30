@@ -13,6 +13,7 @@
         {
             var provider = services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>().BuildServiceProvider();
             services.AddScoped<IProductService, ProductService >().BuildServiceProvider();
+            //services.AddScoped<IFavoritesService, FavoritesService >().BuildServiceProvider();
 
             var scope = provider.CreateScope();
 

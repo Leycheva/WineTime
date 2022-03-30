@@ -61,3 +61,7 @@ form label {
 .nav-pills .nav-link {
     color: white;
 }
+
+.image-parent {
+    max-width: 80px;
+}

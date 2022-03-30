@@ -1,9 +1,14 @@
-﻿namespace WineTime.Models.Products
+﻿namespace WineTime.Models.Favorites
 {
+    using WineTime.Areas.Admin.Models;
     using WineTime.Infrastructure.Data;
 
     public class FavoritesFormModel
     {
+        public IEnumerable<ProductListingViewModel> Products { get; set; }
+
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }

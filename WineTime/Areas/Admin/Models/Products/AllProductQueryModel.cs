@@ -8,6 +8,7 @@
         public const int ProductPerPage = 6;
 
         public string Category { get; set; }
+
         
         [Display(Name="Search by text")]
         public string SearchTerm { get; set; }
@@ -27,5 +28,6 @@
         public IEnumerable<string> Categories { get; set; }
 
         public IEnumerable<ProductListingViewModel> Products { get; set; }
+
     }
 }

@@ -22,6 +22,8 @@
 
         public DbSet<ApplicationUser> Users { get; set; }
 
+        public DbSet<Favorite> Favorites { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             

@@ -6,7 +6,6 @@
     using WineTime.Areas.Admin.Models;
     using WineTime.Core.Constants;
     using WineTime.Infrastructure.Data;
-    using WineTime.Models.Products;
 
     public class ProductsController : BaseController
     {
@@ -55,6 +54,8 @@
                 .ProjectTo<ProductListingViewModel>(mapper.ConfigurationProvider)
                 .ToList();
 
+         
+
             var productNames = data
                 .Products
                 .Select(p => p.Name)
@@ -85,13 +86,6 @@
             return View(productForm);
 
         }
-
-        //public IActionResult AddToFavorites(int id)
-        //{
-        //    var product = productService.Details(id);
-
-
-        //}
 
     }
 }
