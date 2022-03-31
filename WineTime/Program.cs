@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using WineTime.ModelBinders;
 using WineTime.Core.Constants;
 using WineTime.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using WineTime.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +27,7 @@ builder.Services.AddControllersWithViews()
         options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
         options.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatingConstant.NormalDateFormat));
         options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
+        options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
     });
 
 builder.Services.AddApplicationServices();

@@ -1,7 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Welcome!";
+    ViewBag.Title = "Welcome!";
 }
 
-<h1>Welcome!</h1>
+<div class="row mt-3"> 
+    <h1 class="text-center text-white">Welcome @User.Identity.Name !</h1>
+</div>
 
 

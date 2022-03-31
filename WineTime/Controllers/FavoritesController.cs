@@ -1,25 +1,29 @@
 ﻿namespace WineTime.Controllers
 {
-    using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using System.Security.Claims;
     using WineTime.Areas.Admin.Models;
     using WineTime.Infrastructure.Data;
     using WineTime.Models.Favorites;
+    using Microsoft.AspNetCore.Identity;
 
     public class FavoritesController : BaseController
     {
         private readonly ApplicationDbContext data;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public FavoritesController(ApplicationDbContext _data)
+        public FavoritesController(
+            ApplicationDbContext _data,
+            UserManager<ApplicationUser> _userManager)
         {
             data = _data;
+            userManager = _userManager;
         }
 
         public IActionResult Favorites()
         {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var favorite = data
                 .Favorites
                 .Include(x => x.Products)

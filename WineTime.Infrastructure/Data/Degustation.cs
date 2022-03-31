@@ -1,19 +1,19 @@
 ﻿namespace WineTime.Infrastructure.Data
 {
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Degustation
     {
         [Key]
         public int Id { get; set; }
 
-
-        [ForeignKey(nameof(ProductId))]
-        public Product Product { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string Name { get; set; }
 
         [Required]
-        public int ProductId { get; set; }
+        [StringLength(500)]
+        public string Description { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -23,9 +23,7 @@
         public DateTime DateTime { get; set; }
 
         [Required]
-        public int AvailableSeats { get; set; }
-
-
+        public int Seats { get; set; }
 
     }
 }

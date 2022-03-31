@@ -17,6 +17,8 @@
             CreateMap<Category, ProductCategoryServiceModel>();
             CreateMap<Manufacture, ProductManufactureServiceModel>()
                 .ForMember(x => x.Region, cfg => cfg.MapFrom(r => r.Region.Country));
+            CreateMap<Degustation, DegustationsServiceViewModel>()
+                .ForMember(x=> x.DateTime,cfg => cfg.MapFrom(d => d.DateTime.ToString("dd.MM.yyyy HH:mm")));
 
         }
     }

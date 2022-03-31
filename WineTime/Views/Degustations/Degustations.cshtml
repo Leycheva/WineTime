@@ -1,0 +1,41 @@
+﻿@model DegustationsAllViewModel
+
+@{
+    ViewBag.Title = "Wine Tasting";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="md-5">
+            <h3 class="text-white text-center mt-3">Book a Degustation!</h3>
+            <ul class="list-group ">
+                @foreach (var degustation in Model.Degustations)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center mt-2 mb-2">
+                        <div class="image-parent2">
+                            <img src="~/Images/Header8.jpg" class="img-fluid">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5>@degustation.Name</h5>
+                            <div><b>Description: </b>@degustation.Description</div>
+                            <div><b>Address: </b>@degustation.Address</div>
+                            <div><b>Date: </b>@degustation.DateTime</div> 
+                            <div><b>Available seats: </b>@degustation.Seats</div>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <a asp-controller="Degustations" asp-area="Admin" asp-action="Edit" asp-route-id="@degustation.Id" class="btn btn-red mt-2">Edit</a>
+                                <a asp-controller="Degustations" asp-area="Admin" asp-action="Delete" asp-route-id="@degustation.Id" class="btn btn-red mt-2">Delete</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Degustations" asp-area="" asp-action="Book" asp-route-id="@degustation.Id" class="btn btn-red mt-2">Book</a>
+                            }
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+

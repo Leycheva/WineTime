@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using WineTime.Core.Constants;
+    using WineTime.Core.Contracts;
     using WineTime.Core.Services;
     using WineTime.Extensions;
     using WineTime.Infrastructure.Data;
@@ -13,6 +14,7 @@
         {
             var provider = services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>().BuildServiceProvider();
             services.AddScoped<IProductService, ProductService >().BuildServiceProvider();
+            services.AddScoped<IDegustationsService, DegustationsService>().BuildServiceProvider();
             //services.AddScoped<IFavoritesService, FavoritesService >().BuildServiceProvider();
 
             var scope = provider.CreateScope();

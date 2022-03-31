@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    public class BaseController : Controller
+    public abstract class BaseController : Controller
     {
     }
 }
