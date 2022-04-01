@@ -68,9 +68,37 @@
             data.SaveChanges();
         }
 
-        public void Update()
+        public DegustationsServiceViewModel? Details(int id)
+            => data
+            .Degustations
+            .Where(d => d.Id == id)
+            .ProjectTo<DegustationsServiceViewModel>(mapper.ConfigurationProvider)
+            .FirstOrDefault();
+
+        public void Update(
+            int id, 
+            string Name, 
+            string Description, 
+            string Address, 
+            string dateTime, 
+            int seats)
         {
-            throw new NotImplementedException();
+            DateTime date;
+            DateTime.TryParseExact(
+                dateTime,
+                "yyyy-MM-ddTHH:mm",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out date);
+
+            var degustation = data.Degustations.FirstOrDefault(d => d.Id == id);
+            degustation.Name = Name;
+            degustation.Description = Description;
+            degustation.Address = Address;
+            degustation.DateTime = date;
+            degustation.Seats = seats;
+
+            data.SaveChanges();
         }
     }
 }

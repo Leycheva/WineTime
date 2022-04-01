@@ -90,14 +90,14 @@
         }
 
         public ProductsServiceModel? Details(int id)
-            => this.data
+            => data
             .Products
             .Where(p => p.Id == id)
             .ProjectTo<ProductsServiceModel>(mapper.ConfigurationProvider)
             .FirstOrDefault();
 
         public IEnumerable<ProductRegionServiceModel> GetProductRegion()
-         => this.data
+         => data
             .Regions
             .ProjectTo<ProductRegionServiceModel>(mapper.ConfigurationProvider)
             .ToList();

@@ -42,6 +42,33 @@
                 degustation.Seats
                );
 
+            return RedirectToAction("Degustations", "Degustations", new { area = "" });
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var degustation = degustationsService.Details(id);
+            var degustationForm = mapper.Map<DegustationsFormModel>(degustation);
+
+            return View(degustationForm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(DegustationsFormModel degustation)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(degustation);
+            }
+
+
+            degustationsService.Update(
+                degustation.Id,
+                degustation.Name,
+                degustation.Description,
+                degustation.Address,
+                degustation.DateTime,
+                degustation.Seats);
 
             return RedirectToAction("Degustations", "Degustations", new { area = "" });
         }

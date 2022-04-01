@@ -13,9 +13,17 @@ namespace WineTime.Core.Contracts
             string dateTime,
             int seats);
 
-        void Update();
+        void Update(
+            int id,
+            string Name,
+            string Description,
+            string Address,
+            string dateTime,
+            int seats);
 
         void Delete(int id);
+
+        public DegustationsServiceViewModel Details(int id);
 
         IEnumerable<DegustationsServiceViewModel> All();
     }

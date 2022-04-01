@@ -1,0 +1,35 @@
+﻿@model DegustationsFormModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 ">
+        <h2 class="heading-margin text-center text-white">@ViewBag.Title</h2>
+        <form method="post">
+            <div class="form-group text-white">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+                <div class="form-group text-white">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" class="form-control">
+                 <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group text-white">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="form-control">
+                 <span asp-validation-for="Address" class="small text-danger"></span>
+            </div>
+            <div class="form-group text-white">
+                <label asp-for="DateTime"></label>
+                <input asp-for="DateTime" class="form-control" />
+                 <span asp-validation-for="DateTime" class="small text-danger"></span>
+            </div>
+            <div class="form-group text-white">
+                <label asp-for="Seats"></label>
+                <input asp-for="Seats" class="form-control">
+                 <span asp-validation-for="Seats" class="small text-danger"></span>
+            </div>
+            <input class="btn btn-red mt-2" type="submit" value="Save" />
+        </form>
+    </div>
+</div>
