@@ -4,6 +4,7 @@
     using WineTime.Areas.Admin.Models;
     using WineTime.Core.Models;
     using WineTime.Infrastructure.Data;
+    using WineTime.Models.Degustations;
 
     public class MappingProfile : Profile
     {
@@ -17,6 +18,8 @@
             CreateMap<Category, ProductCategoryServiceModel>();
             CreateMap<Manufacture, ProductManufactureServiceModel>()
                 .ForMember(x => x.Region, cfg => cfg.MapFrom(r => r.Region.Country));
+            CreateMap<DegustationsServiceViewModel, DegustationsFormModel>();
+            //CreateMap<Degustation, DegustationsAllViewModel>();
             CreateMap<Degustation, DegustationsServiceViewModel>()
                 .ForMember(x=> x.DateTime,cfg => cfg.MapFrom(d => d.DateTime.ToString("dd.MM.yyyy HH:mm")));
 
