@@ -2,11 +2,11 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using System.Security.Claims;
     using WineTime.Areas.Admin.Models;
     using WineTime.Infrastructure.Data;
     using WineTime.Models.Favorites;
     using Microsoft.AspNetCore.Identity;
+    using WineTime.Extensions;
 
     public class FavoritesController : BaseController
     {
@@ -23,7 +23,7 @@
 
         public IActionResult Favorites()
         {
-            string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string userId = User.GetId();
             var favorite = data
                 .Favorites
                 .Include(x => x.Products)
@@ -62,7 +62,7 @@
         public IActionResult AddToFavorites(int id)
         {
             var product = data.Products.FirstOrDefault(p => p.Id == id);
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.GetId();
 
             if (data.Favorites.Any(x => x.UserId == userId))
             {
@@ -96,7 +96,7 @@
 
             Console.WriteLine(id);
             var product = data.Products.FirstOrDefault(p => p.Id == id);
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.GetId();
 
             var favorite = data.Favorites.Include(x => x.Products).FirstOrDefault(x => x.UserId == userId);
             favorite.Products.Remove(product);

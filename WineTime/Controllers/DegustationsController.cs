@@ -3,11 +3,12 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Mvc;
-    using WineTime.Areas.Admin.Models;
     using WineTime.Core.Contracts;
     using WineTime.Core.Models;
     using WineTime.Infrastructure.Data;
     using WineTime.Models.Degustations;
+    using WineTime.Extensions;
+    using Microsoft.EntityFrameworkCore;
 
     public class DegustationsController : BaseController
     {
@@ -45,6 +46,21 @@
             query.TotalDegustation = totalDeg;
 
             return View(query);
+        }
+
+        public IActionResult Book(int id)
+        {
+            var userId = User.GetId();
+            var degustation = data.Degustations.Include(y => y.Users).FirstOrDefault(d => d.Id == id);
+
+            ApplicationUser userTodegustation = data.
+                Users.FirstOrDefault(c => c.Id == userId);
+
+            degustation.Users.Add(userTodegustation);
+
+            data.SaveChanges();
+
+            return View("Book");
         }
     }
 }
