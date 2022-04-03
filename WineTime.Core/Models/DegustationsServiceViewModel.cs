@@ -15,6 +15,8 @@
 
         public int Seats { get; set; }
 
+        public int BookSeats { get; set; }
+
         public IEnumerable<DegustationsServiceViewModel> Degustations { get; set; }
     }
 }

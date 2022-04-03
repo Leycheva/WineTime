@@ -69,11 +69,11 @@
             return RedirectToAction("All");
         }
 
-        public void ConvertPrice(string price)
-        {
-            var conPrice = Decimal.Parse(price,
-        NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-        }
+        //public void ConvertPrice(string price)
+        //{
+        //    var conPrice = Decimal.Parse(price,
+        //NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+        //}
 
 
         public IActionResult Edit(int id)

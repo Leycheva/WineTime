@@ -7,5 +7,6 @@
     {
         [StringLength(50)]
         public string? FullName { get; set; }
+
     }
 }

@@ -54,7 +54,6 @@
                 .ProjectTo<ProductListingViewModel>(mapper.ConfigurationProvider)
                 .ToList();
 
-         
 
             var productNames = data
                 .Products

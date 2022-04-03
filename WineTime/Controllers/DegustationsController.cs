@@ -29,8 +29,6 @@
         public IActionResult Degustations([FromQuery] AllDegustationQueryModel query)
         {
             var degQuery = data.Degustations.AsQueryable();
-            //var degustations = degustationsService.All();
-            //var model =new DegustationsAllViewModel { Degustations = degustations };
             var totalDeg = degQuery.Count();
 
             var degustations = degQuery
@@ -40,7 +38,6 @@
                 .ProjectTo<DegustationsServiceViewModel>(mapper.ConfigurationProvider)
                 .ToList();
 
-           
 
             query.Degustations = degustations;
             query.TotalDegustation = totalDeg;

@@ -5,5 +5,7 @@ namespace WineTime.Models.Degustations
     public class DegustationsAllViewModel
     {
         public IEnumerable<DegustationsServiceViewModel> Degustations { get; set; }
+
+
     }
 }
