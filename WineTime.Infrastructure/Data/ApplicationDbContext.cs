@@ -24,10 +24,23 @@
 
         public DbSet<Degustation> Degustations { get; set; }
 
+        public DbSet<UserDegustation> UserDegustatuions { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<UserDegustation>()
+              .HasKey(ud => new { ud.DegustationId, ud.UserId });
+
+            //modelBuilder.Entity<UserDegustation>()
+            //    .HasOne(ud => ud.Degustation)
+            //    .WithMany(u => u.Users)
+            //    .HasForeignKey(ud => ud.DegustationId);
+
+            //modelBuilder.Entity<UserDegustation>()
+            //    .HasOne(ud => ud.User)
+            //    .WithMany(d => d.D)
+            //    .HasForeignKey(bc => bc.UserId);
 
             base.OnModelCreating(modelBuilder);
         }

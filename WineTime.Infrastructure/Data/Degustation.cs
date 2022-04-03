@@ -25,7 +25,7 @@
         [Required]
         public int Seats { get; set; }
 
-        public ICollection<ApplicationUser> Users { get; set; } = new HashSet<ApplicationUser>();
+        public ICollection<UserDegustation> Users { get; set; } = new HashSet<UserDegustation>();
 
     }
 }

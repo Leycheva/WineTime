@@ -47,13 +47,24 @@
 
         public IActionResult Book(int id)
         {
+            
             var userId = User.GetId();
             var degustation = data.Degustations.Include(y => y.Users).FirstOrDefault(d => d.Id == id);
 
-            ApplicationUser userTodegustation = data.
-                Users.FirstOrDefault(c => c.Id == userId);
+            if (degustation.Users.Any(x => x.UserId == userId))
+            {
+                return View("DegError");
+            }
+            //var userTodegustation = data.
+            //    Users.FirstOrDefault(c => c.Id == userId);
 
-            degustation.Users.Add(userTodegustation);
+            var userDegustation = new UserDegustation
+            {
+                UserId = userId,
+                DegustationId = id
+            };
+
+            degustation.Users.Add(userDegustation);
 
             data.SaveChanges();
 
