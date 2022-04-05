@@ -4,20 +4,16 @@
     using Microsoft.AspNetCore.Mvc;
     using WineTime.Areas.Admin.Models;
     using WineTime.Core.Contracts;
-    using WineTime.Infrastructure.Data;
 
     public class DegustationsController : AdminController
     {
-        private readonly ApplicationDbContext data;
         private readonly IDegustationsService degustationsService;
         private readonly IMapper mapper;
 
         public DegustationsController(
-            ApplicationDbContext _data,
             IDegustationsService _degustationsService,
             IMapper _mapper)
         {
-            data = _data;
             degustationsService = _degustationsService;
             mapper = _mapper;
         }

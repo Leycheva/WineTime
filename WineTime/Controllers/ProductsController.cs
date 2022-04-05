@@ -10,12 +10,12 @@
     public class ProductsController : BaseController
     {
         private readonly ApplicationDbContext data;
-        private readonly IProductService productService;
+        private readonly IProductsService productService;
         private readonly IMapper mapper;
 
         public ProductsController(
             ApplicationDbContext _data,
-            IProductService _productService,
+            IProductsService _productService,
             IMapper _mapper)
         {
             data = _data;

@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using WineTime.Core.Contracts;
-    using WineTime.Core.Models;
+    using WineTime.Core.Models.Degustations;
     using WineTime.Infrastructure.Data;
 
     public class DegustationsService : IDegustationsService

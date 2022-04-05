@@ -1,4 +1,4 @@
-﻿namespace WineTime.Core.Models
+﻿namespace WineTime.Core.Models.Degustations
 {
     public class DegustationsServiceViewModel
     {

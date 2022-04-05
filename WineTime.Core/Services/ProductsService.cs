@@ -7,12 +7,12 @@
     using WineTime.Core.Models;
     using WineTime.Infrastructure.Data;
 
-    public class ProductService : IProductService
+    public class ProductsService : IProductsService
     {
         private readonly ApplicationDbContext data;
         private readonly IMapper mapper;
 
-        public ProductService(
+        public ProductsService(
             ApplicationDbContext _data,
              IMapper _mapper)
         {

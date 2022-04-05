@@ -9,27 +9,22 @@
 
     public class ProductsController : AdminController
     {
-        private readonly ApplicationDbContext data;
-        private readonly IProductService productService;
+        private readonly IProductsService productService;
         private readonly IMapper mapper;
 
         public ProductsController(
-            ApplicationDbContext _data,
-            IProductService _productService,
+            IProductsService _productService,
             IMapper _mapper)
         {
-            data = _data;
             productService = _productService;
             mapper = _mapper;
         }
-
 
         public IActionResult Add() => View(new ProductFormModel
         {
             Categories = productService.GetProductCategories(),
             Manufactures = productService.GetProductManufactures()
         });
-
 
         [HttpPost]
         public IActionResult Add(ProductFormModel product)
@@ -53,8 +48,7 @@
                 return View(product);
             }
 
-
-            this.productService.Create(
+                productService.Create(
                 product.Name,
                 product.Price.ToString(),
                 product.ImageUrl,
@@ -65,16 +59,8 @@
                 product.Sort
                );
 
-
             return RedirectToAction("All");
         }
-
-        //public void ConvertPrice(string price)
-        //{
-        //    var conPrice = Decimal.Parse(price,
-        //NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-        //}
-
 
         public IActionResult Edit(int id)
         {
@@ -108,9 +94,7 @@
                 return View(product);
             }
 
-
-
-            this.productService.Update(
+           productService.Update(
                 product.Id ?? 0,
                 product.Name,
                 product.Price.ToString(),
@@ -122,18 +106,14 @@
                 product.Sort
                );
 
-
             return RedirectToAction("All");
         }
 
-
         public IActionResult Delete(int id)
         {
-
             productService.Delete(id);
 
             return RedirectToAction("All");
-
         }
     }
 }

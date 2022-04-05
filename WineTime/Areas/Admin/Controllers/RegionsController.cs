@@ -2,14 +2,13 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using WineTime.Areas.Admin.Controllers;
-    using WineTime.Infrastructure.Data;
+    using WineTime.Core.Contracts;
 
     public class RegionsController : AdminController
     {
+        private readonly IRegionsService regionsService;
 
-        private readonly ApplicationDbContext data;
-
-        public RegionsController(ApplicationDbContext _data) => data = _data;
+        public RegionsController(IRegionsService _regionsService) => regionsService = _regionsService;
 
         public IActionResult Add() => View();
 
@@ -21,17 +20,9 @@
                 return View(region);
             }
 
-            var regionData = data.Regions.FirstOrDefault();
+            regionsService.Create(region.Country);
 
-            var newRegion = new Region
-            {
-                Country = region.Country,
-            };
-
-            data.Regions.Add(newRegion);
-            data.SaveChanges();
-
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("All", "Products", new { area = "" });
         }
     }
 }

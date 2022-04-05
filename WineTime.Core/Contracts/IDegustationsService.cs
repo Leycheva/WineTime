@@ -1,9 +1,7 @@
-﻿
-
-using WineTime.Core.Models;
-
-namespace WineTime.Core.Contracts
+﻿namespace WineTime.Core.Contracts
 {
+    using WineTime.Core.Models.Degustations;
+
     public interface IDegustationsService
     {
         int Create(

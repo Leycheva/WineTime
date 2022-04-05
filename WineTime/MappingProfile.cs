@@ -3,6 +3,7 @@
     using AutoMapper;
     using WineTime.Areas.Admin.Models;
     using WineTime.Core.Models;
+    using WineTime.Core.Models.Degustations;
     using WineTime.Infrastructure.Data;
 
     public class MappingProfile : Profile

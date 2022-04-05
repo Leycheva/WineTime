@@ -13,9 +13,10 @@
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             var provider = services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>().BuildServiceProvider();
-            services.AddScoped<IProductService, ProductService >().BuildServiceProvider();
+            services.AddScoped<IProductsService, ProductsService >().BuildServiceProvider();
             services.AddScoped<IDegustationsService, DegustationsService>().BuildServiceProvider();
-            //services.AddScoped<IFavoritesService, FavoritesService >().BuildServiceProvider();
+            services.AddScoped<IManufacturesService, ManufacturesService>().BuildServiceProvider();
+            services.AddScoped<IRegionsService, RegionsService >().BuildServiceProvider();
 
             var scope = provider.CreateScope();
 

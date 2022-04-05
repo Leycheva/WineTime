@@ -1,7 +1,7 @@
-﻿using WineTime.Core.Models;
-
-namespace WineTime.Models.Degustations
+﻿namespace WineTime.Models.Degustations
 {
+    using WineTime.Core.Models.Degustations;
+
     public class AllDegustationQueryModel
     {
         public const int DegustationPerPage = 3;

@@ -4,11 +4,11 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Mvc;
     using WineTime.Core.Contracts;
-    using WineTime.Core.Models;
     using WineTime.Infrastructure.Data;
     using WineTime.Models.Degustations;
     using WineTime.Extensions;
     using Microsoft.EntityFrameworkCore;
+    using WineTime.Core.Models.Degustations;
 
     public class DegustationsController : BaseController
     {
@@ -55,8 +55,6 @@
             {
                 return View("DegError");
             }
-            //var userTodegustation = data.
-            //    Users.FirstOrDefault(c => c.Id == userId);
 
             var userDegustation = new UserDegustation
             {

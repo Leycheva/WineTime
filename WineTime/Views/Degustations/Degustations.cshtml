@@ -28,7 +28,14 @@
                             }
                             else
                             {
-                                <a asp-controller="Degustations" asp-area="" asp-action="Book" asp-route-id="@degustation.Id" class="btn btn-red mt-2">Book</a>
+                                @if(degustation.BookSeats < degustation.Seats)
+                                {
+                                    <a asp-controller="Degustations" asp-area="" asp-action="Book" asp-route-id="@degustation.Id" class="btn btn-red mt-2">Book</a>
+                                }
+                                else
+                                {
+                                    <div>Fully booked!</div>
+                                }
                             }
                         </div>
                     </li>

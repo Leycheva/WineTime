@@ -3,7 +3,7 @@
     using WineTime.Core.Models;
     using WineTime.Infrastructure.Data;
 
-    public interface IProductService
+    public interface IProductsService
     {
         int Create(string name,
                    string price,

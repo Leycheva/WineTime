@@ -1,6 +1,6 @@
-﻿namespace WineTime.Areas.Admin.Models
+﻿namespace WineTime.Core.Models.Manufactures
 {
-    public class ManufactureRegionViewModel
+    public class ManufactureRegionServiceModel
     {
         public int Id { get; set; }
 

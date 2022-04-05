@@ -1,6 +1,7 @@
 ﻿namespace WineTime.Areas.Admin.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using WineTime.Core.Models.Manufactures;
 
     public class AddManufactureFormModel
     {
@@ -20,6 +21,6 @@
         [Display(Name = "Region")]
         public int RegionId { get; init; }
 
-        public IEnumerable<ManufactureRegionViewModel>? Regions { get; set; }
+        public IEnumerable<ManufactureRegionServiceModel>? Regions { get; set; }
     }
 }
