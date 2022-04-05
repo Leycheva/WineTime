@@ -11,7 +11,7 @@
         public MappingProfile()
         {
             CreateMap<ProductsServiceModel, ProductFormModel>().ReverseMap();
-            CreateMap<Product, ProductListingViewModel>()
+            CreateMap<Product, ProductListingServiceModel>()
                 .ForMember(x => x.Category, cfg => cfg.MapFrom(c => c.Category.Name));
             CreateMap<Product, ProductsServiceModel>();
             CreateMap<Region, ProductRegionServiceModel>();

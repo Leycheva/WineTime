@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using WineTime.Areas.Admin.Models;
     using WineTime.Core.Constants;
+    using WineTime.Core.Models;
     using WineTime.Infrastructure.Data;
 
     public class ProductsController : BaseController
@@ -51,7 +52,7 @@
                 .Skip((query.CurrentPage - 1) * AllProductQueryModel.ProductPerPage)
                 .Take(AllProductQueryModel.ProductPerPage)
                 .OrderByDescending(p => p.Id)
-                .ProjectTo<ProductListingViewModel>(mapper.ConfigurationProvider)
+                .ProjectTo<ProductListingServiceModel>(mapper.ConfigurationProvider)
                 .ToList();
 
 

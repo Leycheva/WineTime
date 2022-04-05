@@ -1,11 +1,10 @@
 ﻿namespace WineTime.Models.Favorites
 {
-    using WineTime.Areas.Admin.Models;
-    using WineTime.Infrastructure.Data;
+    using WineTime.Core.Models;
 
     public class FavoritesFormModel
     {
-        public IEnumerable<ProductListingViewModel> Products { get; set; }
+        public IEnumerable<ProductListingServiceModel> Products { get; set; }
 
         public int Id { get; set; }
 

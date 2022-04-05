@@ -1,6 +1,7 @@
 ﻿namespace WineTime.Areas.Admin.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using WineTime.Core.Models;
 
     public class AllProductQueryModel
     {
@@ -27,7 +28,7 @@
 
         public IEnumerable<string> Categories { get; set; }
 
-        public IEnumerable<ProductListingViewModel> Products { get; set; }
+        public IEnumerable<ProductListingServiceModel> Products { get; set; }
 
     }
 }

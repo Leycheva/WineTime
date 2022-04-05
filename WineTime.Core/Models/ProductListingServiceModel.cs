@@ -1,6 +1,6 @@
-﻿namespace WineTime.Areas.Admin.Models
+﻿namespace WineTime.Core.Models
 {
-    public class ProductListingViewModel
+    public class ProductListingServiceModel
     {
         public int Id { get; set; }
 

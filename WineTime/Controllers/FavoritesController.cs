@@ -1,58 +1,20 @@
 ﻿namespace WineTime.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using WineTime.Areas.Admin.Models;
-    using WineTime.Infrastructure.Data;
     using WineTime.Models.Favorites;
-    using Microsoft.AspNetCore.Identity;
     using WineTime.Extensions;
+    using WineTime.Core.Contracts;
 
     public class FavoritesController : BaseController
     {
-        private readonly ApplicationDbContext data;
-        private readonly UserManager<ApplicationUser> userManager;
-
-        public FavoritesController(
-            ApplicationDbContext _data,
-            UserManager<ApplicationUser> _userManager)
-        {
-            data = _data;
-            userManager = _userManager;
-        }
+        private readonly IFavoritesService favoritesService;
 
         public IActionResult Favorites()
         {
             string userId = User.GetId();
-            var favorite = data
-                .Favorites
-                .Include(x => x.Products)
-                .FirstOrDefault(f => f.UserId == userId);
 
-            if (favorite == null)
-            {
-                return View(new FavoritesFormModel());
-            }
-
-            var quary = favorite.Products.AsQueryable();
-
-            var productCategorie = data
-                .Products
-                .Select(p => p.Category.Name)
-                .FirstOrDefault();
-
-            var products = favorite
-                .Products
-                .Select(p => new ProductListingViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    ImageUrl = p.ImageUrl,
-                    Price = p.Price,
-                    YearOfManufacture = p.YearOfManufacture,
-                    Category = productCategorie
-                }).ToList();
-
+            var products = favoritesService.GetFavoriteProductsByUser(userId);
+           
             return View(new FavoritesFormModel
             {
                 Products = products
@@ -61,48 +23,18 @@
 
         public IActionResult AddToFavorites(int id)
         {
-            var product = data.Products.FirstOrDefault(p => p.Id == id);
             var userId = User.GetId();
 
-            if (data.Favorites.Any(x => x.UserId == userId))
-            {
-                var favorite = data.Favorites.FirstOrDefault(x => x.UserId == userId);
-
-                favorite.Products.Add(product);
-
-                data.Update(favorite);
-                data.SaveChanges();
-            }
-            else
-            {
-                var favorite = new Favorite
-                {
-                    UserId = userId,
-                    Products =
-                    {
-                        product
-                    }
-                };
-
-                data.Favorites.Add(favorite);
-                data.SaveChanges();
-            }
+            favoritesService.Add(userId, id);
 
             return RedirectToAction("Favorites");
         }
 
         public IActionResult Remove(int id)
         {
-
-            Console.WriteLine(id);
-            var product = data.Products.FirstOrDefault(p => p.Id == id);
             var userId = User.GetId();
 
-            var favorite = data.Favorites.Include(x => x.Products).FirstOrDefault(x => x.UserId == userId);
-            favorite.Products.Remove(product);
-
-            data.Update(favorite);
-            data.SaveChanges();
+            favoritesService.Remove(userId, id);
 
             return RedirectToAction("Favorites");
         }
