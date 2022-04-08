@@ -44,12 +44,12 @@
                     <h5 class="card-title">@product.Name @product.YearOfManufacture (@product.Category)</h5>
                     @if(User.IsInRole("Administrator"))
                     {
-                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-red">Edit</a>
-                        <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-red">Delete</a>
+                        <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-red">Edit</a>
+                        <a asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-red">Delete</a>
                     }
                     else
                     {
-                        <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-red">Details</a>
+                        <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-red">Details</a>
                     }
                 </div>
             </div>

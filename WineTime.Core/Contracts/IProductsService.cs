@@ -5,6 +5,14 @@
 
     public interface IProductsService
     {
+        ProductQueryServiceModel All(
+            string category,
+            string searchTerm,
+            string name,
+            ProductSorting sorting,
+            int productPerPage = int.MaxValue,
+            int currentPage = 1);
+            
         int Create(string name,
                    string price,
                    string imageUrl,
@@ -34,9 +42,12 @@
 
         IEnumerable<ProductCategoryServiceModel> GetProductCategories();
 
+
         IEnumerable<ProductManufactureServiceModel> GetProductManufactures();
 
         IEnumerable<ProductRegionServiceModel> GetProductRegion();
+
+
 
     }
 }

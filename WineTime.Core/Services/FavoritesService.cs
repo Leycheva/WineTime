@@ -10,7 +10,7 @@
     {
         private readonly ApplicationDbContext data;
 
-        public FavoritesService(ApplicationDbContext data) => data = data;
+        public FavoritesService(ApplicationDbContext _data) => data = _data;
 
         public void Add(string userId, int id)
         {

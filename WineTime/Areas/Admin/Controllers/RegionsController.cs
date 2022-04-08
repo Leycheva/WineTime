@@ -8,7 +8,8 @@
     {
         private readonly IRegionsService regionsService;
 
-        public RegionsController(IRegionsService _regionsService) => regionsService = _regionsService;
+        public RegionsController(IRegionsService _regionsService) 
+            => regionsService = _regionsService;
 
         public IActionResult Add() => View();
 

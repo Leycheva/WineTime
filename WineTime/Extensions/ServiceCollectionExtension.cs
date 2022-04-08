@@ -17,6 +17,7 @@
             services.AddScoped<IDegustationsService, DegustationsService>().BuildServiceProvider();
             services.AddScoped<IManufacturesService, ManufacturesService>().BuildServiceProvider();
             services.AddScoped<IRegionsService, RegionsService >().BuildServiceProvider();
+            services.AddScoped<IFavoritesService, FavoritesService >().BuildServiceProvider();
 
             var scope = provider.CreateScope();
 

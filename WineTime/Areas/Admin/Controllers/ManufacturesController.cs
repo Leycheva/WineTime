@@ -9,7 +9,8 @@
     {
         private readonly IManufacturesService manufactureService;
 
-        public ManufacturesController(IManufacturesService _manufactureService) => manufactureService = _manufactureService;
+        public ManufacturesController(IManufacturesService _manufactureService) 
+            => manufactureService = _manufactureService;
 
         public IActionResult Add() => View(new AddManufactureFormModel
         {

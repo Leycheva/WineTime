@@ -14,6 +14,6 @@
 
         public int TotalDegustation { get; set; } = 1;
 
-        public ICollection<DegustationsServiceViewModel> Degustations { get; set; }
+        public IEnumerable<DegustationsServiceViewModel> Degustations { get; set; }
     }
 }

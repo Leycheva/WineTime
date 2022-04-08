@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Globalization;
     using WineTime.Core.Contracts;
@@ -30,6 +31,29 @@
                 .ToList();
         }
 
+        public DegustationsQueryServiceModel All(int degustationPerPage = int.MaxValue, int currentPage = 1)
+        {
+            var degQuery = data.Degustations.AsQueryable();
+            var totalDeg = degQuery.Count();
+
+            var degustations = GetDegustation(degQuery
+               .Skip((currentPage - 1) * degustationPerPage)
+               .Take(degustationPerPage));
+
+            return new DegustationsQueryServiceModel
+            {
+                TotalDegustations = totalDeg,
+                CurrentPage = currentPage,
+                DegustationPerPage = degustationPerPage,
+                Degustations = degustations
+            };
+        }
+
+        private IEnumerable<DegustationsServiceViewModel> GetDegustation(IQueryable<Degustation> degQuery)
+           => degQuery
+           .ProjectTo<DegustationsServiceViewModel>(mapper.ConfigurationProvider)
+           .ToList();
+
         public int Create(string Name, string Description, string Address, string dateTime, int seats)
         {
             DateTime date;
@@ -42,8 +66,8 @@
 
             var degData = new Degustation
             {
-                Name = Name,    
-                Description = Description,  
+                Name = Name,
+                Description = Description,
                 Address = Address,
                 DateTime = date,
                 Seats = seats
@@ -76,11 +100,11 @@
             .FirstOrDefault();
 
         public void Update(
-            int id, 
-            string Name, 
-            string Description, 
-            string Address, 
-            string dateTime, 
+            int id,
+            string Name,
+            string Description,
+            string Address,
+            string dateTime,
             int seats)
         {
             DateTime date;
@@ -99,6 +123,27 @@
             degustation.Seats = seats;
 
             data.SaveChanges();
+        }
+
+        public bool Book(string userId,int id)
+        {
+            var degustation = data.Degustations.Include(y => y.Users).FirstOrDefault(d => d.Id == id);
+
+            if (degustation.Users.Any(x => x.UserId == userId))
+            {
+                return false;
+            }
+
+            var userDegustation = new UserDegustation
+            {
+                UserId = userId,
+                DegustationId = id
+            };
+
+            degustation.Users.Add(userDegustation);
+            data.SaveChanges();
+
+            return true;
         }
     }
 }

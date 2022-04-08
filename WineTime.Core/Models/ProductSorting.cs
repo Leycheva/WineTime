@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WineTime.Areas.Admin.Models
+﻿namespace WineTime.Core.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public enum ProductSorting
     {
         [Display(Name= "Manufacture")]

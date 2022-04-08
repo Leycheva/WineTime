@@ -25,7 +25,7 @@
             .Categories
             .Any(p => p.Id == categoryId);
 
-        
+
         public IEnumerable<ProductCategoryServiceModel> GetProductCategories()
          => this.data
           .Categories
@@ -43,7 +43,7 @@
             .Manufactures
             .Any(p => p.Id == manufactureId);
 
-        public int Create(string name, string price, string imageUrl, string description, 
+        public int Create(string name, string price, string imageUrl, string description,
             int categoryId, string yearOfManufacture, int manufactureId, Sort sort)
         {
             var convertPrice = Decimal.Parse(price,
@@ -114,6 +114,59 @@
             data.Products.Remove(product);
             data.SaveChanges();
         }
+
+        public ProductQueryServiceModel All(string category, string searchTerm, string name,
+            ProductSorting sorting, int productPerPage = int.MaxValue, int currentPage = 1)
+        {
+            var productQuery = data.Products.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                productQuery = productQuery.Where(x => x.Category.Name == category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                productQuery = productQuery.Where(p =>
+                    p.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            productQuery = sorting switch
+            {
+                ProductSorting.Manufacture => productQuery.OrderBy(p => p.Manufacture.ManufactureName),
+                ProductSorting.Year => productQuery.OrderByDescending(p => p.YearOfManufacture),
+                ProductSorting.Price or _ => productQuery.OrderByDescending(p => p.Price)
+            };
+
+            var totalProducts = productQuery.Count();
+
+            var products = GetProducts(productQuery
+                .Skip((currentPage - 1) * productPerPage)
+                .Take(productPerPage));
+
+
+            return new ProductQueryServiceModel
+            {
+                TotalProducts = totalProducts,
+                CurrentPage = currentPage,
+                ProductPerPage = productPerPage,
+                Products = products
+            };
+        }
+
+        private IEnumerable<ProductListingServiceModel> GetProducts(IQueryable<Product> productQuery)
+            => productQuery
+            .Select(p => new ProductListingServiceModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                ImageUrl = p.ImageUrl,
+                YearOfManufacture = p.YearOfManufacture,
+                Price = p.Price,
+                Category = p.Category.Name
+            })
+            .ToList();
+
     }
 
 }

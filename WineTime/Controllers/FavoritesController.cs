@@ -5,9 +5,16 @@
     using WineTime.Extensions;
     using WineTime.Core.Contracts;
 
+    using static WebConstants;
+
     public class FavoritesController : BaseController
     {
         private readonly IFavoritesService favoritesService;
+
+        public FavoritesController(IFavoritesService _favoritesService)
+        {
+            favoritesService = _favoritesService;
+        }
 
         public IActionResult Favorites()
         {
@@ -27,6 +34,8 @@
 
             favoritesService.Add(userId, id);
 
+            TempData[GlobalMessageKey] = "You successfully added this product to your Wish List!";
+
             return RedirectToAction("Favorites");
         }
 
@@ -35,6 +44,8 @@
             var userId = User.GetId();
 
             favoritesService.Remove(userId, id);
+
+            TempData[GlobalMessageKey] = "You successfully removed this product from your Wish List!";
 
             return RedirectToAction("Favorites");
         }

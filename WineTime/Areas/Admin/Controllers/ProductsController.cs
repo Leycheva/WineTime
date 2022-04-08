@@ -2,10 +2,8 @@
 {
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
-    using System.Globalization;
     using WineTime.Areas.Admin.Controllers;
     using WineTime.Core.Constants;
-    using WineTime.Infrastructure.Data;
 
     public class ProductsController : AdminController
     {
@@ -59,7 +57,7 @@
                 product.Sort
                );
 
-            return RedirectToAction("All");
+            return RedirectToAction("All", "Products", new { area = "" });
         }
 
         public IActionResult Edit(int id)
@@ -106,14 +104,14 @@
                 product.Sort
                );
 
-            return RedirectToAction("All");
+            return RedirectToAction("All", "Products", new { area = "" });
         }
 
         public IActionResult Delete(int id)
         {
             productService.Delete(id);
 
-            return RedirectToAction("All");
+            return RedirectToAction("All", "Products", new { area = "" });
         }
     }
 }
