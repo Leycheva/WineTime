@@ -129,6 +129,14 @@
         {
             var degustation = data.Degustations.Include(y => y.Users).FirstOrDefault(d => d.Id == id);
 
+            if (degustation == null)
+            {
+                return false;
+            }
+            if (!data.Users.Any(x => x.Id == userId))
+            {
+                return false;
+            }
             if (degustation.Users.Any(x => x.UserId == userId))
             {
                 return false;
