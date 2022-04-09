@@ -12,11 +12,6 @@
             {
                 return null;
             }
-            //get
-            //{
-            //    var degustationsServiceMock = new Mock<IDegustationsService>();
-
-            //}
         }
     }
 }

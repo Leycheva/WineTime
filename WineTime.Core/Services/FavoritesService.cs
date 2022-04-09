@@ -14,8 +14,15 @@
 
         public void Add(string userId, int id)
         {
+            if (!data.Users.Any(x => x.Id == userId))
+            {
+                return;
+            }
             var product = data.Products.FirstOrDefault(p => p.Id == id);
-
+            if (product == null)
+            {
+                return;
+            }
             if (data.Favorites.Any(x => x.UserId == userId))
             {
                 var favorite = data.Favorites.FirstOrDefault(x => x.UserId == userId);
@@ -74,13 +81,27 @@
              .Include(x => x.Products)
              .FirstOrDefault(f => f.UserId == userId);
 
+
         public void Remove(string userId, int id)
         {
+            if(!data.Users.Any(x => x.Id == userId))
+            {
+                return;
+            }
+
             var favorite = GetFavoritesByUser(userId);
+            if (favorite == null)
+            {
+                return;
+            }
 
             var product = data.Products.FirstOrDefault(p => p.Id == id);
-            favorite.Products.Remove(product);
+            if (product == null)
+            {
+                return;
+            }
 
+            favorite.Products.Remove(product);
             data.Update(favorite);
             data.SaveChanges();
         }

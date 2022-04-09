@@ -13,23 +13,25 @@
         [Fact]
         public void IsReturnAListOfAllDegustatiions()
         {
-            var degustationsServise = GetService();
+            var degustationsService = GetService();
 
-            var result = degustationsServise.All().ToList();
+            var result = degustationsService.All().ToList();
+            var result2 = degustationsService.All(2,1);
             var isExist = result.Any(x => x.Id == 1);
 
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
             Assert.True(isExist);
+            Assert.Equal(2, result2.Degustations.Count());
         }
 
         [Fact]
         public void TryToAddDegustation()
         {
             var data = DatabaseMock.Instance;
-            var degustationsServise = GetService(data);
+            var degustationsService = GetService(data);
 
-            var id = degustationsServise.Create("Test", "Some description", "Sofia", DateTime.Now.ToString(), 5);
+            var id = degustationsService.Create("Test", "Some description", "Sofia", DateTime.Now.ToString(), 5);
 
             var result = data.Degustations.FirstOrDefault(x => x.Id == id);
 
@@ -38,13 +40,32 @@
             Assert.Equal(5, result.Seats);
         }
 
+
+        [Fact]
+        public void TryToUpdateDegustation()
+        {
+            var data = DatabaseMock.Instance;
+            var degustationsService = GetService(data);
+            var date = DateTime.Now;
+            degustationsService.Update(1,"Test1", "Some description", "Varna", date.ToString(), 55);
+
+            var result = data.Degustations.FirstOrDefault(x => x.Id == 1);
+            
+            Assert.NotNull(result);
+            Assert.Equal("Test1", result.Name);
+            Assert.Equal("Some description", result.Description);
+            Assert.Equal("Varna", result.Address);
+            Assert.Equal(55, result.Seats);
+        }
+
         [Fact]
         public void TryToDeleteDegustation()
         {
             var data = DatabaseMock.Instance;
-            var degustationsServise = GetService();
+            var degustationsService = GetService();
 
-            degustationsServise.Delete(1);
+            degustationsService.Delete(1);
+            degustationsService.Delete(3);
 
             Assert.DoesNotContain(data.Degustations, x => x.Id == 1);
         }
@@ -52,9 +73,9 @@
         [Fact]
         public void TryToGetDetailsAboutDegustation()
         {
-            var degustationsServise = GetService();
+            var degustationsService = GetService();
 
-            var result = degustationsServise.Details(1);
+            var result = degustationsService.Details(1);
 
             Assert.NotNull(result);
             Assert.True(result.Name =="Wine-1");
@@ -64,9 +85,9 @@
         public void TryToBookADegustation()
         {
             var data = DatabaseMock.Instance;
-            var degustationsServise = GetService(data);
+            var degustationsService = GetService(data);
 
-            var result = degustationsServise.Book("TestId", 1);
+            var result = degustationsService.Book("TestId", 1);
 
             Assert.True(result);
             Assert.Contains(data.UserDegustatuions, x => x.UserId == "TestId" && x.DegustationId == 1);
@@ -76,13 +97,13 @@
         public void TryToBookInvalidDegustation()
         {
             var data = DatabaseMock.Instance;
-            var degustationsServise = GetService(data);
+            var degustationsService = GetService(data);
 
-            degustationsServise.Book("TestId", 1);
+            degustationsService.Book("TestId", 1);
 
-            var result1 = degustationsServise.Book("TestId", 3);
-            var result2 = degustationsServise.Book("hwhw", 1);
-            var result3 = degustationsServise.Book("TestId", 1);
+            var result1 = degustationsService.Book("TestId", 3);
+            var result2 = degustationsService.Book("hwhw", 1);
+            var result3 = degustationsService.Book("TestId", 1);
 
             Assert.False(result1);
             Assert.False(result2);
@@ -98,7 +119,7 @@
             }
             var mapper = MapperMock.Instance;
 
-            var degustationsServise = new DegustationsService(data, mapper);
+            var degustationsService = new DegustationsService(data, mapper);
 
             data.Degustations.Add(new Degustation
             {
@@ -119,7 +140,7 @@
             data.Users.Add(user);
             data.SaveChanges();
             
-            return degustationsServise;
+            return degustationsService;
         }
     }
 }
