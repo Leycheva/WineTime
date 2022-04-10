@@ -1,5 +1,6 @@
 ﻿namespace WineTime.Tests.Services
 {
+    using System.Collections.Generic;
     using System.Linq;
     using WineTime.Core.Services;
     using WineTime.Infrastructure.Data;
@@ -53,19 +54,22 @@
             Assert.Contains(result, x => x.Country == "SP");
         }
 
-
         [Fact]
-        public void IfRegionExist()
+        public void IsManufactureExist()
         {
             var data = DatabaseMock.Instance;
             var region = new Region { Id = 1, Country = "BG" };
             data.Regions.Add(region);
             data.SaveChanges();
+            var manufacture = new Manufacture { Id = 1, ManufactureName = "Katarzina", 
+                Region = region, ImageUrl = "", Products = new HashSet<Product>() };
+            data.Manufactures.Add(manufacture);
+            data.SaveChanges();
 
             var manufactureService = new ManufacturesService(data);
 
-            var result = manufactureService.RegionExists(1);
-            var result2 = manufactureService.RegionExists(2);
+            var result = manufactureService.ManufactureExists(1);
+            var result2 = manufactureService.ManufactureExists(12);
 
             Assert.True(result);
             Assert.False(result2);

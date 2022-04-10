@@ -41,7 +41,26 @@
 
             Assert.Null(result);
         }
-        private static IFavoritesService GetService(ApplicationDbContext outdata = null)
+
+        [Fact]
+        public void TryToGetFavoritesProductsByUser()
+        {
+            var data = DatabaseMock.Instance;
+            var favoritesService = GetService(data);
+
+            favoritesService.Add("TestId", 1);
+
+            var result = favoritesService.GetFavoriteProductsByUser("TestId");
+            var result2 = favoritesService.GetFavoriteProductsByUser("TestId2");
+
+            Assert.NotNull(result);
+            Assert.Null(result2);
+            Assert.Equal(1, result.Count());
+            Assert.Contains(result, x => x.Id == 1);
+
+        }
+
+            private static IFavoritesService GetService(ApplicationDbContext outdata = null)
         {
             var data = outdata;
             if (data == null)

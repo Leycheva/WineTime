@@ -8,9 +8,15 @@
     public class ManufacturesController : AdminController
     {
         private readonly IManufacturesService manufactureService;
+        private readonly IRegionsService regionService;
 
-        public ManufacturesController(IManufacturesService _manufactureService) 
-            => manufactureService = _manufactureService;
+        public ManufacturesController(
+            IManufacturesService _manufactureService,
+            IRegionsService _regionService)
+        {
+            manufactureService = _manufactureService;
+            regionService = _regionService;
+        }
 
         public IActionResult Add() => View(new AddManufactureFormModel
         {
@@ -21,7 +27,7 @@
         public IActionResult Add(AddManufactureFormModel manufacture)
         {
 
-            if (!manufactureService.RegionExists(manufacture.RegionId))
+            if (!regionService.RegionExists(manufacture.RegionId))
             {
                 ModelState.AddModelError(nameof(manufacture.RegionId), "Region does not exist.");
             }

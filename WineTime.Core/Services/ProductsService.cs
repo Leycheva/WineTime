@@ -38,10 +38,6 @@
             .ProjectTo<ProductManufactureServiceModel>(mapper.ConfigurationProvider)
             .ToList();
 
-        public bool ManufactureExists(int manufactureId)
-             => data
-            .Manufactures
-            .Any(p => p.Id == manufactureId);
 
         public int Create(string name, string price, string imageUrl, string description,
             int categoryId, string yearOfManufacture, int manufactureId, Sort sort)
@@ -166,7 +162,5 @@
                 Category = p.Category.Name
             })
             .ToList();
-
     }
-
 }

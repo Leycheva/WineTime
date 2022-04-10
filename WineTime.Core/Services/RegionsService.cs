@@ -21,5 +21,10 @@
 
             return regionData.Id;
         }
+
+        public bool RegionExists(int regionId)
+           => data.
+           Regions.
+           Any(r => r.Id == regionId);
     }
 }

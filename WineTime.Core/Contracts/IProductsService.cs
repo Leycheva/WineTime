@@ -36,7 +36,6 @@
 
         bool CategoryExists(int categoryId);
 
-        bool ManufactureExists(int manufactureId);
 
         public ProductsServiceModel Details(int id);
 

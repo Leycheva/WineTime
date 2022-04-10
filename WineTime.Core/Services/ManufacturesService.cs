@@ -36,10 +36,10 @@
                    })
                    .ToList();
 
-        public bool RegionExists(int regionId)
-            => data.
-            Regions.
-            Any(r => r.Id == regionId);
+        public bool ManufactureExists(int manufactureId)
+             => data
+            .Manufactures
+            .Any(p => p.Id == manufactureId);
 
 
     }

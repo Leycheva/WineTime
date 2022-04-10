@@ -10,6 +10,7 @@ namespace WineTime.Core.Contracts
 
         IEnumerable<ManufactureRegionServiceModel> GetManufactureRegions();
 
-        bool RegionExists(int regionId);
+        bool ManufactureExists(int manufactureId);
+
     }
 }

@@ -4,17 +4,21 @@
     using Microsoft.AspNetCore.Mvc;
     using WineTime.Areas.Admin.Controllers;
     using WineTime.Core.Constants;
+    using WineTime.Core.Contracts;
 
     public class ProductsController : AdminController
     {
         private readonly IProductsService productService;
+        private readonly IManufacturesService manufactureService;
         private readonly IMapper mapper;
 
         public ProductsController(
             IProductsService _productService,
+            IManufacturesService _manufactureService,
             IMapper _mapper)
         {
             productService = _productService;
+            manufactureService = _manufactureService;
             mapper = _mapper;
         }
 
@@ -33,7 +37,7 @@
                 ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist.");
             }
 
-            if (!productService.ManufactureExists(product.ManufactureId))
+            if (!manufactureService.ManufactureExists(product.ManufactureId))
             {
                 ModelState.AddModelError(nameof(product.ManufactureId), "Manufacture does not exist.");
             }
@@ -79,7 +83,7 @@
                 ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist.");
             }
 
-            if (!productService.ManufactureExists(product.ManufactureId))
+            if (!manufactureService.ManufactureExists(product.ManufactureId))
             {
                 ModelState.AddModelError(nameof(product.ManufactureId), "Manufacture does not exist.");
             }
