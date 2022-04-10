@@ -1,4 +1,4 @@
-﻿namespace WineTime.Tests.Controllers
+﻿namespace WineTime.Tests.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using WineTime.Models.Degustations;

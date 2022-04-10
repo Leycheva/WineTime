@@ -9,7 +9,6 @@
     {
         private readonly IDegustationsService degustationsService;
         private readonly IMapper mapper;
-        private IDegustationsService instanse;
 
         public DegustationsController(
             IDegustationsService _degustationsService,
@@ -17,11 +16,6 @@
         {
             degustationsService = _degustationsService;
             mapper = _mapper;
-        }
-
-        public DegustationsController(IDegustationsService instanse)
-        {
-            this.instanse = instanse;
         }
 
         public IActionResult Add() => View(new DegustationsFormModel());
